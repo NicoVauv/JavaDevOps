@@ -1,9 +1,10 @@
-create table users
+create table products
 (
     id bigint auto_increment,
     constraint users_pk
         primary key (id),
-    first_name TEXT not null,
-    last_name TEXT not null,
-    age int null
+    category TEXT not null,
+    name TEXT not null,
+    number int null,
+    selected int null
 );
