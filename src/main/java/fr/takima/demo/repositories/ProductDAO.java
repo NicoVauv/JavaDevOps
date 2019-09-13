@@ -1,5 +1,6 @@
-package fr.takima.demo;
+package fr.takima.demo.repositories;
 
+import fr.takima.demo.models.Product;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,5 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductDAO extends CrudRepository<Product, Long> {
 
-    public int findBySelected(Integer selected);
+    int findByAvailable(Integer available);
 }
