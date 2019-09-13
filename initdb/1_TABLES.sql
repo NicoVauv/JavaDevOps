@@ -4,9 +4,7 @@ create table products
     constraint products_pk
         primary key (id),
     category TEXT not null,
-    name TEXT not null,
-    onfridge int not null,
-    onlist int not null,
+    name TEXT not null
 );
 
 create table users
@@ -16,7 +14,7 @@ create table users
         primary key (id),
     pseudo TEXT not null,
     mail TEXT not null,
-    password int not null,
+    password int not null
 );
 
 create table myfridge
@@ -24,9 +22,10 @@ create table myfridge
     id bigint auto_increment,
     constraint myfridge_pk
         primary key (id),
-    id_product constraint products_fk
-        foreign key (id_product) references product(id),
-    quantity int not null,
+    id_product bigint not null,
+    constraint fk_products
+        foreign key (id_product) references products(id),
+    onfridge int not null
 );
 
 create table mylist
@@ -34,7 +33,8 @@ create table mylist
     id bigint auto_increment,
     constraint mylist_pk
         primary key (id),
-    id_product2 constraint products2_fk
-        foreign key (id_product2) references product(id),
-    quantity int not null,
+    id_product2 bigint not null,
+    constraint products2_fk
+        foreign key (id_product2) references products(id),
+    onlist int not null
 );

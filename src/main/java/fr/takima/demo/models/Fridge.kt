@@ -11,7 +11,7 @@ data class Fridge(
                 @Id var id: Long?,
                 @OneToOne
                 @Column(name = "id_product") var id_product: Int?,
-                @Column(name = "quantity") var quantity: Int?) {
+                @Column(name = "onfridge") var onfridge: Int?) {
     constructor() : this(null, null, null)
 
 }

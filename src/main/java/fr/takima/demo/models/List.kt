@@ -10,8 +10,8 @@ data class List(
                 @GeneratedValue(strategy = GenerationType.IDENTITY)
                 @Id var id: Long?,
                 @OneToOne
-                @Column(name = "id_product") var id_product: Int?,
-                @Column(name = "quantity") var quantity: Int?) {
+                @Column(name = "id_product2") var id_product2: Int?,
+                @Column(name = "onlist") var onlist: Int?) {
     constructor() : this(null, null, null)
 
 }
