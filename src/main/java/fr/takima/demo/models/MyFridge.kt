@@ -5,13 +5,14 @@ import javax.persistence.*
 /**
  *
  */
-@Entity(name = "mylist")
-data class List(
+@Entity(name = "myfridge")
+data class MyFridge(
                 @GeneratedValue(strategy = GenerationType.IDENTITY)
                 @Id var id: Long?,
                 @OneToOne
-                @Column(name = "id_product2") var id_product2: Int?,
-                @Column(name = "onlist") var onlist: Int?) {
+                @JoinColumn(name = "id_product", referencedColumnName = "id")
+                var myProduct1: Product?,
+                @Column(name = "onfridge") var onfridge: Int?) {
     constructor() : this(null, null, null)
 
 }

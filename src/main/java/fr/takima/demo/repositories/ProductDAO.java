@@ -9,6 +9,4 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ProductDAO extends CrudRepository<Product, Long> {
-
-    int findByAvailable(Integer available);
 }
