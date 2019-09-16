@@ -25,12 +25,12 @@ public class MyListController {
   @PostMapping("/releaseProduct")
   public String releaseProduct(@ModelAttribute MyList mylist, RedirectAttributes attrs) {
     attrs.addFlashAttribute("message", "Your product has been released");
-    if(ListDAO.findById(mylist.getId()).get().getOnlist() != 0){
+   /* if(ListDAO.findById(mylist.getId()).get().getOnlist() != 0){
       ListDAO.findById(mylist.getId()).get().setOnlist(mylist.getOnlist() - 1);
     }
     else {
       ListDAO.delete(mylist);
-    }
+    }*/
     return "index";
   }
 
@@ -39,7 +39,7 @@ public class MyListController {
     public String addNewProduct(@ModelAttribute MyList myList, RedirectAttributes attrs) {
         attrs.addFlashAttribute("message", "Your product has been added");
         ListDAO.save(myList);
-        ListDAO.findById(myList.getId()).get().setOnlist(myList.getOnlist() + 1);
+       // ListDAO.findById(myList.getId()).get().setOnlist(myList.getOnlist() + 1);
         return "index";
     }
 

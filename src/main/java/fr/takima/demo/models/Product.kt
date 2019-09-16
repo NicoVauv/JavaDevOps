@@ -10,12 +10,12 @@ data class Product(
                 @GeneratedValue(strategy = GenerationType.IDENTITY)
                 @Id
                 @Column(name = "id") var id: Long?,
+                @OneToMany (mappedBy = "list")
+                var myProductList: List<ProductList>?,
+                @OneToMany(mappedBy = "fridge")
+                var myProductFridge: List<ProductFridge>?,
                 @Column(name = "category") var category: String?,
-                @Column(name = "name") var name: String?,
-                @OneToOne (mappedBy = "myProduct1")
-                var myFridge: MyFridge?,
-                @OneToOne (mappedBy = "myProduct2")
-                var myList: MyList?){
+                @Column(name = "name") var name: String?){
     constructor() : this(null, null, null, null, null)
 
 }
