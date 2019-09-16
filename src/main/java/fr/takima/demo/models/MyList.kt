@@ -9,13 +9,16 @@ import javax.persistence.*
 data class MyList(
                 @GeneratedValue(strategy = GenerationType.IDENTITY)
                 @Id var id: Long?,
-                @ManyToMany (mappedBy = "myProductList")
-                var products: List<Product>?,
-                @ManyToMany (mappedBy = "myUserList")
-                var users: List<User>?,
-                @OneToOne (mappedBy = "myFridge")
-                var myFridge: MyFridge?,
-                @Column(name = "onlist") var onlist: Int?) {
-    constructor() : this(null, null, null,null,null)
+                @OneToMany (mappedBy = "product")
+                var products: List<ProductList>?,
+                @ManyToMany (cascade = arrayOf(CascadeType.ALL))
+                @JoinTable(name = "userslist",
+                        joinColumns = arrayOf(JoinColumn(name = "id_list_user")),
+                        inverseJoinColumns = arrayOf(JoinColumn(name = "id_user_list")))
+                var myUserList: List<User>?,
+                @OneToOne (cascade = arrayOf(CascadeType.ALL))
+                @JoinColumn(name = "id_list_fridge", referencedColumnName = "id")
+                var myFridge: MyFridge?) {
+    constructor() : this(null, null, null,null)
 
 }
