@@ -22,7 +22,7 @@ public class UserController {
     @GetMapping("/login")
     public String showAll(Model m) {
         m.addAttribute("users", UserDAO.findAll());
-        return "index";
+        return "login";
     }
 
 }
