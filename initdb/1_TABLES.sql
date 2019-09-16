@@ -38,3 +38,14 @@ create table mylist
         foreign key (id_product2) references products(id),
     onlist int not null
 );
+
+create table liste
+(
+    id bigint auto_increment,
+    constraint users_pk
+        primary key (id),
+    category TEXT not null,
+    name TEXT not null,
+    number int null,
+    selected int null
+);
