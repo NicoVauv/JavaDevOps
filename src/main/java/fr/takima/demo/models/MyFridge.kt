@@ -9,10 +9,11 @@ import javax.persistence.*
 data class MyFridge(
                 @GeneratedValue(strategy = GenerationType.IDENTITY)
                 @Id var id: Long?,
-                @OneToOne
-                @JoinColumn(name = "id_product", referencedColumnName = "id")
-                var myProduct1: Product?,
+                @ManyToMany (mappedBy = "myProductFridge")
+                var products: List<Product>?,
+                @OneToOne (mappedBy = "myUserList")
+                var UserList: MyList?,
                 @Column(name = "onfridge") var onfridge: Int?) {
-    constructor() : this(null, null, null)
+    constructor() : this(null, null, null,null)
 
 }
