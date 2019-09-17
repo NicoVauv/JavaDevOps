@@ -86,21 +86,20 @@
     <a href="/login" class="btn btn-primary">Deconnection</a>
   </div>
 
+  <form method="post" th:action="@{/ajouterproduit}" th:object="${products}">
   <div class="gauche">
     <p>Choisissez votre produit</p>
     <br>
     <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Categorie
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#">Drink</a>
-        <a class="dropdown-item" href="#">Food</a>
-      </div>
+
+      <select class="btn btn-secondary dropdown-toggl" aria-labelledby="dropdownMenuButton" id="dropdownMenuButton">
+        <option class="dropdown-item" href="#">Drink</option>
+        <option class="dropdown-item" href="#">Food</option>
+      </select>
     </div>
     <br>
-    <label>Ajoutez un produit</label> : <input type="text" name="nouveauProduit" /><br>
-
+    <label>Ajoutez un produit</label> : <input type="text" name="nouveauProduit" th:field="*{name}" /><br>
+    <br>
 
     <label>Quantité</label> : <a class="btn btn-primary" action>+</a> &nbsp; <a class="btn btn-primary"> - </a>
 
@@ -108,7 +107,8 @@
       <a class="btn btn-primary">Add</a>
     </div>
   </div>
-<br>
+  </form>
+
 <div class="milieu">
   <label>Ma liste de courses</label>
     <table class="table table-striped table-dark">
@@ -141,8 +141,8 @@
       </tr>
       </thead>
       <tbody>
-      <tr th:each="product : ${productsfridge}">
-        <td scope="row" th:text="${product.id}"></td>
+      <tr th:each="frigo : ${myfridge}">
+        <td scope="row" th:text="${frigo.reference}"></td>
       </tr>
       </tbody>
     </table>
