@@ -25,6 +25,11 @@ public class UserController {
         this.FridgeDAO = fridgeDAO;
     }
 
+    @GetMapping("/login")
+    public String getLoginPage(){
+        return "login";
+    }
+
     @PostMapping("/login")
     public RedirectView getConnection(@ModelAttribute User user, RedirectAttributes attrs){
         if(checkConnection(user)){
