@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 /**
  *
  */
-@RequestMapping("/")
+@RequestMapping("/myProducts")
 @Controller
 public class ProductController {
 
