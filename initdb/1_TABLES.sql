@@ -69,7 +69,7 @@ create table productsfridge
 create table userslist
 (
     id bigint auto_increment,
-    constraint users_pk
+    constraint userslist_pk
         primary key (id),
     id_user_list bigint not null,
     constraint fk_user_list
