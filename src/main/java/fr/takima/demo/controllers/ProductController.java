@@ -38,8 +38,6 @@ public class ProductController {
       return "index";
   }
 
-<<<<<<< HEAD
-=======
   // Release a product in my list
   @PostMapping("/releaseProduct")
   public String releaseProduct(@ModelAttribute MyList mylist, RedirectAttributes attrs) {
@@ -61,7 +59,6 @@ public class ProductController {
     // ListDAO.findById(myList.getId()).get().setOnlist(myList.getOnlist() + 1);
     return "index";
   }
->>>>>>> 359d91fd017b6a3010051d1c4eea16951f7dbbd5
 
   /*@PostMapping("/new")
   public RedirectView createNewUser(@ModelAttribute Product user, RedirectAttributes attrs) {
