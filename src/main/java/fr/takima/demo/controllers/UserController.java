@@ -25,7 +25,7 @@ public class UserController {
         this.FridgeDAO = fridgeDAO;
     }
 
-    @GetMapping("/login")
+    @GetMapping
     public String getLoginPage(){
         return "login";
     }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  *
  */
-@RequestMapping("/myFridge")
+@RequestMapping("/home")
 @Controller
 public class FridgeController {
 
