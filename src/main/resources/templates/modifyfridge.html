@@ -82,13 +82,12 @@
             <th scope="col"> - </th>
         </tr>
         </thead>
+        <tbody>
 
-       <!-- <tbody>
-        <tr th:each="list : ${mylist}">
-            <td scope="row" th:text="${list.id}"></td>
-            &lt;!&ndash;        <td th:text="${}"></td>&ndash;&gt;
+        <tr th:each="myproductfridge : ${productsfridge}">
+            <td scope="row" th:object="${myproductfridge.getOnfridge()}"></td>
         </tr>
-        </tbody>-->
+        </tbody>
     </table>
 
 
