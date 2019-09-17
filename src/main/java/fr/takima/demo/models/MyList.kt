@@ -9,8 +9,8 @@ import javax.persistence.*
 data class MyList(
                 @GeneratedValue(strategy = GenerationType.IDENTITY)
                 @Id var id: Long?,
-                @OneToMany (mappedBy = "product")
-                var products: List<ProductList>?,
+                @OneToMany (mappedBy = "myProducts")
+                var myProducts: List<ProductList>?,
                 @ManyToMany (cascade = arrayOf(CascadeType.ALL))
                 @JoinTable(name = "userslist",
                         joinColumns = arrayOf(JoinColumn(name = "id_list_user")),

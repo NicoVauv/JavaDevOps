@@ -29,7 +29,8 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String getLoginPage(){
+    public String getLoginPage(Model m){
+        m.addAttribute("users", new User());
         return "login";
     }
 

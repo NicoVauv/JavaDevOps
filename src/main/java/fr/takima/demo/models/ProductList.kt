@@ -10,10 +10,10 @@ data class ProductList (
     @Column(name = "id") var id: Long?,
     @ManyToOne
     @JoinColumn(name = "id_list_product")
-    var list: MyList?,
+    var myProducts: MyList?,
     @ManyToOne
     @JoinColumn(name = "id_product_list")
-    var product: Product?,
+    var myLists: Product?,
     @Column(name = "onlist")
     var onlist: Int?){
         constructor() : this(null, null, null, null)
