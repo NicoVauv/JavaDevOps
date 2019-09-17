@@ -4,9 +4,13 @@ import fr.takima.demo.models.User;
 import fr.takima.demo.repositories.FridgeDAO;
 import fr.takima.demo.repositories.UserDAO;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -30,9 +34,10 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public RedirectView getConnection(@ModelAttribute User user, RedirectAttributes attrs){
+    public RedirectView getConnection(@ModelAttribute User user, RedirectAttributes attrs, HttpServletResponse response){
         if(checkConnection(user)){
             attrs.addFlashAttribute("message", "Connection Successed");
+            createCookie(response, user);
             return new RedirectView("/home");
         }
         else {
@@ -40,6 +45,10 @@ public class UserController {
             return new RedirectView("/login");
         }
     }
+        private void createCookie(HttpServletResponse response, User user) {
+            Cookie cookie = new Cookie("id", user.getId().toString());
+            response.addCookie(cookie);
+        }
 
     private boolean checkConnection(User user) {
                     User UserConnected = UserDAO.findByMail(user.getMail());
@@ -58,7 +67,8 @@ public class UserController {
     }
 
     @GetMapping("/signin")
-    public String goToRegistrationPage(){
+    public String goToRegistrationPage(Model m){
+        m.addAttribute("users", new User());
         return "signin";
     }
 
