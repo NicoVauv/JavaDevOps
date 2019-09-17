@@ -1,6 +1,8 @@
 package fr.takima.demo.controllers;
 
+import fr.takima.demo.models.MyFridge;
 import fr.takima.demo.models.User;
+import fr.takima.demo.repositories.FridgeDAO;
 import fr.takima.demo.repositories.UserDAO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +18,11 @@ import org.springframework.web.servlet.view.RedirectView;
 public class UserController {
 
     private final UserDAO UserDAO;
+    private final FridgeDAO FridgeDAO;
 
-    public UserController(UserDAO userDAO) {
-        UserDAO = userDAO;
+    public UserController(UserDAO userDAO, FridgeDAO fridgeDAO) {
+        this.UserDAO = userDAO;
+        this.FridgeDAO = fridgeDAO;
     }
 
     @PostMapping("/login")
