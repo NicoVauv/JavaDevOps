@@ -10,10 +10,10 @@ data class ProductFridge (
         @Column(name = "id") var id: Long?,
         @ManyToOne
         @JoinColumn(name = "id_fridge_product")
-        var fridge: MyFridge?,
+        var myProducts: MyFridge?,
         @ManyToOne
         @JoinColumn(name = "id_product_fridge")
-        var product: Product?,
+        var myFridges: Product?,
         @Column(name = "onfridge")
         var onfridge: Int?){
     constructor() : this(null, null, null, null)

@@ -4,7 +4,6 @@ import fr.takima.demo.models.MyList;
 import fr.takima.demo.repositories.FridgeDAO;
 import fr.takima.demo.repositories.ListDAO;
 import fr.takima.demo.repositories.ProductDAO;
-import fr.takima.demo.repositories.ProductFridgeDAO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
