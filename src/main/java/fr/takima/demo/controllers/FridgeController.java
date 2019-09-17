@@ -24,7 +24,7 @@ public class FridgeController {
   @GetMapping("/")
   public String showMyProducts(Model m) {
     m.addAttribute("productsfridge", ProductFridgeDAO.findAll());
-    return "myFridge";
+    return "modifyfridge";
   }
 
   /*@PostMapping("/new")
