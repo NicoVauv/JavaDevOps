@@ -24,5 +24,9 @@ public class UserController {
         m.addAttribute("users", UserDAO.findAll());
         return "login";
     }
-
+    @GetMapping("/signin")
+    public String registration (Model m) {
+        m.addAttribute("users", UserDAO.findAll());
+        return "signin";
+    }
 }

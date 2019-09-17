@@ -26,6 +26,11 @@ public class FridgeController {
     return "index";
   }
 
+  @GetMapping ("/modifyfridge")
+  public String Modifyfridge(Model m) {
+    m.addAttribute("myfridge", fridgeDAO.findAll());
+    return "modify";
+  }
   /*@PostMapping("/new")
   public RedirectView createNewUser(@ModelAttribute Product user, RedirectAttributes attrs) {
     attrs.addFlashAttribute("message", "Utilisateur ajouté avec succès");
