@@ -144,9 +144,8 @@
       </tr>
       </thead>
       <tbody>
-      <tr th:each="product : ${products}">
-        <td scope="row" th:text="${product.category}"></td>
-        <td th:text="${product.name}"></td>
+      <tr th:each="product : ${productsfridge}">
+        <td scope="row" th:text="${product.id}"></td>
       </tr>
       </tbody>
     </table>
