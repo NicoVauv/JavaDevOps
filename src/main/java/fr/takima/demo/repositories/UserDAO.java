@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserDAO extends CrudRepository<User, Long> {
+    User findByMail(String mail);
 }
