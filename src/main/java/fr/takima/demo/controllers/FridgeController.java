@@ -21,10 +21,9 @@ public class FridgeController {
   }
 
   // Get products from home page
-  @GetMapping("/")
+  @GetMapping
   public String showMyProducts(Model m) {
-    m.addAttribute("productsfridge", ProductFridgeDAO.findAll());
-    return "modifyfridge";
+    return "acceuil";
   }
 
   /*@PostMapping("/new")

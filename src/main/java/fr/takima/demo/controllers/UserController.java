@@ -1,6 +1,5 @@
 package fr.takima.demo.controllers;
 
-import fr.takima.demo.models.MyFridge;
 import fr.takima.demo.models.User;
 import fr.takima.demo.repositories.FridgeDAO;
 import fr.takima.demo.repositories.UserDAO;
@@ -25,7 +24,7 @@ public class UserController {
         this.FridgeDAO = fridgeDAO;
     }
 
-    @GetMapping
+    @GetMapping("/login")
     public String getLoginPage(){
         return "login";
     }
@@ -56,6 +55,11 @@ public class UserController {
         else {
             return false;
         }
+    }
+
+    @GetMapping("/signin")
+    public String goToRegistrationPage(){
+        return "signin";
     }
 
     @PostMapping("/signin")
