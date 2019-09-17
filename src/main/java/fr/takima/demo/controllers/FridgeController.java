@@ -1,7 +1,6 @@
 package fr.takima.demo.controllers;
 
-import fr.takima.demo.repositories.FridgeDAO;
-import fr.takima.demo.repositories.ProductFridgeDAO;
+import fr.takima.demo.repositories.ListDAO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,15 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class FridgeController {
 
-  private final ProductFridgeDAO ProductFridgeDAO;
+  private final ListDAO listDAO;
 
-  public FridgeController(fr.takima.demo.repositories.ProductFridgeDAO ProductFridgeDAO) {
-    this.ProductFridgeDAO = ProductFridgeDAO;
+  public FridgeController(ListDAO listDAO) {
+    this.listDAO = listDAO;
   }
 
   // Get products from home page
   @GetMapping
-  public String showMyProducts(Model m) {
+  public String showMyFridges(Model m) {
     return "acceuil";
   }
 
