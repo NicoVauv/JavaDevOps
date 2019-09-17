@@ -8,18 +8,18 @@ import org.springframework.web.bind.annotation.*;
 /**
  *
  */
-@RequestMapping("/")
+@RequestMapping("/login")
 @Controller
 
 public class UserController {
 
     private final UserDAO UserDAO;
 
-    public UserController(fr.takima.demo.repositories.UserDAO userDAO) {
+    public UserController(UserDAO userDAO) {
         UserDAO = userDAO;
     }
 
-    @GetMapping("/login")
+    @GetMapping
     public String showAll(Model m) {
         m.addAttribute("users", UserDAO.findAll());
         return "login";
