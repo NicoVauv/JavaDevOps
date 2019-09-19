@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form method="post" th:action="@{/acceuil}" th:object="${fridge}">
+<form method="get" th:action="@{/acceuil}" th:object="${myFridges}">
 <aside>
     <div class="listefridge">
         <label>Mon frigo</label>
@@ -19,7 +19,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="frigo : ${myfridge}">
+            <tr th:each="frigo : ${myFridges}">
                 <td scope="row" th:text="${frigo.reference}"></td>
             </tr>
             </tbody>
