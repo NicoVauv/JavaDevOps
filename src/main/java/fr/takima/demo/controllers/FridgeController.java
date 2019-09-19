@@ -8,9 +8,9 @@ import fr.takima.demo.repositories.ListDAO;
 import fr.takima.demo.repositories.UserDAO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,15 +48,24 @@ public class FridgeController {
     return "acceuil";
   }
 
-  private String readCookie(@CookieValue(value = "id", defaultValue = "null") String iduser) {
-    return iduser;
+  @PostMapping("/newFridge")
+  public RedirectView createNewFridge(@ModelAttribute MyFridge myFridge, RedirectAttributes attrs) {
+    attrs.addFlashAttribute("message", "New Fridge Added");
+    myFridge.setReference(generateFridge());
+    fridgeDAO.save(myFridge);
+    return new RedirectView("/home");
   }
 
-  /*@PostMapping("/new")
-  public RedirectView createNewUser(@ModelAttribute Product user, RedirectAttributes attrs) {
-    attrs.addFlashAttribute("message", "Utilisateur ajouté avec succès");
-    productDAO.save(user);
-    return new RedirectView("/");
-  }*/
+  public String generateFridge()
+  {
+    String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    String reference = "";
+    for(int i=0;i<6;i++)
+    {
+      int index = (int)Math.floor(Math.random() * 62);
+      reference += chars.charAt(index);
+    }
+    return reference;
+  }
 
 }
