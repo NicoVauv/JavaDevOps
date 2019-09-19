@@ -8,8 +8,8 @@
 </head>
 <body>
 
-<form method="post" th:action="@{/acceuil}" th:object="${fridge}">
-<aside>
+
+<form method="post" th:action="@{/voirFridge}" th:object="${myFridges}">
     <div class="listefridge">
         <label>Mon frigo</label>
         <table class="table table-striped table-dark">
@@ -19,18 +19,21 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="frigo : ${myfridge}">
-                <td scope="row" th:text="${frigo.reference}"></td>
+            <tr th:each="frigo : ${myFridges}">
+                <td scope="row" th:text="${frigo.reference}" type="submit"></td>
+<!--                    <input type="submit" value="Voir mon frigo" class="btn float-right login_btn">-->
             </tr>
             </tbody>
         </table>
     </div>
-</aside>
+</form>
 
+<form method="post" th:action="@{/home/newFridge}" th:object="${myFridges}">
 <div class="form-group">
     <input type="submit" value="Creer nouveau refrigerateur" class="btn float-right login_btn">
 </div>
 </form>
+
 
 </body>
 </html>
