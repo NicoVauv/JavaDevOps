@@ -47,7 +47,7 @@ public class UserController {
         }
     }
         private void createCookie(HttpServletResponse response, User user) {
-            Cookie cookie = new Cookie("id", user.getId().toString());
+            Cookie cookie = new Cookie("id", UserDAO.findByMail(user.getMail()).getId().toString());
             response.addCookie(cookie);
         }
 
