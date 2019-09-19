@@ -12,7 +12,8 @@ data class MyFridge(
                 @OneToMany(mappedBy = "myProducts")
                 var myProducts: List<ProductFridge>?,
                 @OneToOne (mappedBy = "myFridge")
-                var fridgeList: MyList?) {
-    constructor() : this(null, null, null)
+                var fridgeList: MyList?,
+                @Column(name = "reference") var reference: String?) {
+    constructor() : this(null, null, null, null)
 
 }
