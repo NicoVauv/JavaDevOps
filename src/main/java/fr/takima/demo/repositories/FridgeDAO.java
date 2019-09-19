@@ -6,4 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface FridgeDAO extends CrudRepository<MyFridge, Long> {
     MyFridge findMyFridgeByFridgeList(MyList fridgeList);
+    MyFridge findMyFridgeByReference(String reference);
 }

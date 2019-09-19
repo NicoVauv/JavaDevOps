@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,10 +51,19 @@ public class FridgeController {
   }
 
   @PostMapping("/newFridge")
-  public RedirectView createNewFridge(@ModelAttribute MyFridge myFridge, RedirectAttributes attrs) {
+  public RedirectView createNewFridge(@ModelAttribute MyFridge myFridge, RedirectAttributes attrs, @CookieValue(value = "id", defaultValue = "null") String id_user) {
     attrs.addFlashAttribute("message", "New Fridge Added");
     myFridge.setReference(generateFridge());
     fridgeDAO.save(myFridge);
+
+    User user = userDAO.findById(Long.parseLong(id_user)).get();
+    List<User> userList = new ArrayList<>();
+    userList.add(user);
+    MyList myList = new MyList();
+    myList.setMyFridge(fridgeDAO.findMyFridgeByReference(myFridge.getReference()));
+    myList.setMyUserList(userList);
+    listDAO.save(myList);
+
     return new RedirectView("/home");
   }
 
@@ -66,6 +77,17 @@ public class FridgeController {
       reference += chars.charAt(index);
     }
     return reference;
+  }
+
+  @PostMapping("/voirFridge")
+  public RedirectView goToMyFridgePage(@ModelAttribute MyFridge myFridge, HttpServletResponse response) {
+    createCookie(myFridge, response);
+    return new RedirectView("/dashboard");
+  }
+
+  private void createCookie(MyFridge myFridge, HttpServletResponse response) {
+    Cookie cookie = new Cookie("reference", myFridge.getReference());
+    response.addCookie(cookie);
   }
 
 }
