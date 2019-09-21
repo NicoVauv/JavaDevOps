@@ -93,21 +93,19 @@
     <br>
       <form method="post" th:action="@{/selectCategory}" th:object="${products}">
     <div class="dropdown">
-      <select name = "category" aria-labelledby="dropdownMenuButton" class="btn btn-secondary dropdown-toggl" id="dropdownMenuButton">
-        <option class="dropdown-item" type="submit" th:field="${products.category}">Drink</option>
-        <option class="dropdown-item" type="submit" >Food</option>
+      <select th:field="${products}" name = "category" aria-labelledby="dropdownMenuButton" class="btn btn-secondary dropdown-toggl" id="dropdownMenuButton">
+        <option class="dropdown-item" th:each="i :${products}" th:value="${i}" th:text="${i}"></option>
       </select>
+        <!-- si ne focntionne pas passer par onclick-->
     </div>
       </form>
-      <script>
-          var selectElmt = document.getElementById("category");
-          var valeurselectionnee = selectElmt.options[selectElmt.selectedIndex].value;
-          var textselectionne = selectElmt.options[selectElmt.selectedIndex].text;
-      </script>
 
+      <form method="post" th:action="@{/chooseProduct}" th:object="${products}">
       <tr th:each="listeproduit : ${products}">
-          <td scope="row" th:text="${listeproduit.name}" type="submit"></td>
+          <td scope="row" th:text="${listeproduit.category}" type="submit"></td>
       </tr>
+      </form>
+      !<!-- get et post en meme temps ! tester-->
 
     <br>
       <form method="post" th:action="@{/selectQuantity}" th:object="${productslist}">

@@ -4,8 +4,10 @@
     <title>MyFridge</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <html xmlns:th="http://www.thymeleaf.org">
 </head>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
 
 
@@ -19,14 +21,24 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="frigo : ${myFridges}">
-                <td scope="row" th:text="${frigo.reference}" type="submit"></td>
-<!--                    <input type="submit" value="Voir mon frigo" class="btn float-right login_btn">-->
+
+            <tr id="liste" th:each="frigo : ${myFridges}">
+                <td scope="row" th:text="${frigo.reference}" onclick="myFunction()" >
+                    <div class="form-group">
+                        <input type="button" value="Rejoindre" >
+                    </div>
+                </td>
             </tr>
             </tbody>
         </table>
     </div>
 </form>
+<script>
+    function myFunction() {
+        document.getElementById("liste").style.color = "red";
+        var reffridge = document.getElementById("liste").value;
+    }
+</script>
 
 <form method="post" th:action="@{/home/newFridge}" th:object="${myFridges}">
 <div class="form-group">
