@@ -81,15 +81,8 @@ public class FridgeController {
     return reference;
   }
 
-  @GetMapping("/voirFridge")
-  public RedirectView goToMyFridgePage(HttpServletRequest request, HttpServletResponse response) {
-      createCookie(request.getParameter("ref"), response);
-    return new RedirectView("/dashboard");
+  @PostMapping("/voirFridge")
+  public RedirectView goToMyFridgePage(HttpServletRequest request) {
+    return new RedirectView("/dashboard" + "/" + request.getParameter("ref"));
   }
-
-  private void createCookie(String id_fridge, HttpServletResponse response) {
-    Cookie cookie = new Cookie("reference", id_fridge);
-    response.addCookie(cookie);
-  }
-
 }

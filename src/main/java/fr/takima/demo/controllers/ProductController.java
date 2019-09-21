@@ -11,9 +11,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -36,23 +40,20 @@ public class ProductController {
     }
 
     // Get products from home page
-    @GetMapping
-    public String showAll(Model m, HttpServletResponse response, @CookieValue(value = "reference", defaultValue = "null") String id_fridge) {
+    @GetMapping(value={"/{ref}"})
+    public String showAll(Model m, @PathVariable(value="ref") final String id_fridge) {
         MyFridge myFridge = fridgeDAO.findMyFridgeByReference(id_fridge);
         MyList myList = listDAO.findMyListByMyFridge(myFridge);
         List<ProductList> myProductList = new ArrayList<>();
         List<ProductFridge> myProductFridge = new ArrayList<>();
-
-        if (myList.getMyProducts() != null) {
-            myProductList.addAll(myList.getMyProducts());
-            m.addAttribute("myProductList", myProductList);
+        if (myList.getProducts() != null) {
+            m.addAttribute("myProductList", myList.getProducts());
         } else {
             myProductList.add(new ProductList());
             m.addAttribute("myProductList", myProductList);
         }
         if (myFridge.getMyProducts() != null) {
-            myProductFridge.addAll(myFridge.getMyProducts());
-            m.addAttribute("myProductFridge", myProductFridge);
+            m.addAttribute("myProductFridge", myFridge.getMyProducts());
         } else {
             myProductFridge.add(new ProductFridge());
             m.addAttribute("myProductFridge", myProductFridge);
@@ -64,6 +65,16 @@ public class ProductController {
         return "index";
     }
 
+    private String readAllCookies(HttpServletRequest request) {
+
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            return Arrays.stream(cookies)
+                    .map(c -> c.getName() + "=" + c.getValue()).collect(Collectors.joining(", "));
+        }
+
+        return "No cookies";
+    }
     // Add a product in the product list
     @PostMapping("/add")
     public RedirectView addNewProduct(@ModelAttribute Product product, RedirectAttributes attrs) {
@@ -84,9 +95,9 @@ public class ProductController {
         productList.setMyProducts(myList);
         productList.setOnlist(1);
 
-        List<ProductList> myProductList = myList.getMyProducts();
+        List<ProductList> myProductList = myList.getProducts();
         myProductList.add(productList);
-        myList.setMyProducts(myProductList);
+        myList.setProducts(myProductList);
         return new RedirectView("/dashboard");
     }
 
@@ -97,7 +108,7 @@ public class ProductController {
         MyFridge myFridge = fridgeDAO.findMyFridgeByReference(id_fridge);
         MyList myList = listDAO.findMyListByMyFridge(myFridge);
 
-        List<ProductList> productList = myList.getMyProducts();
+        List<ProductList> productList = myList.getProducts();
         for (int i = 0; i < productList.size(); i++){
             if(productList.get(i).getMyLists().getName().equals(product.getName())){
                 if(productList.get(i).getOnlist() == 1){
@@ -119,7 +130,7 @@ public class ProductController {
         MyFridge myFridge = fridgeDAO.findMyFridgeByReference(id_fridge);
         MyList myList = listDAO.findMyListByMyFridge(myFridge);
 
-        List<ProductList> productList = myList.getMyProducts();
+        List<ProductList> productList = myList.getProducts();
         for (int i = 0; i < productList.size(); i++){
            if(productList.get(i).getMyLists().getName().equals(product.getName())){
                productList.get(i).setOnlist(productList.get(i).getOnlist() + 1);
@@ -136,16 +147,16 @@ public class ProductController {
         ProductFridge productFridge = new ProductFridge();
         List<ProductFridge> myProductFridge = myFridge.getMyProducts();
 
-        for (int i = 0; i < myList.getMyProducts().size(); i++) {
+        for (int i = 0; i < myList.getProducts().size(); i++) {
             for (int j = 0; j < myFridge.getMyProducts().size(); j++) {
-                if (myList.getMyProducts().get(i).getMyLists().getName().equals(myFridge.getMyProducts().get(j).getMyFridges().getName())) {
+                if (myList.getProducts().get(i).getMyLists().getName().equals(myFridge.getMyProducts().get(j).getMyFridges().getName())) {
                     productFridge.setMyProducts(myFridge);
-                    productFridge.setMyFridges(myList.getMyProducts().get(i).getMyLists());
-                    productFridge.setOnfridge(myList.getMyProducts().get(i).getOnlist() + myFridge.getMyProducts().get(j).getOnfridge());
+                    productFridge.setMyFridges(myList.getProducts().get(i).getMyLists());
+                    productFridge.setOnfridge(myList.getProducts().get(i).getOnlist() + myFridge.getMyProducts().get(j).getOnfridge());
                 } else {
                     productFridge.setMyProducts(myFridge);
-                    productFridge.setMyFridges(myList.getMyProducts().get(i).getMyLists());
-                    productFridge.setOnfridge(myList.getMyProducts().get(i).getOnlist());
+                    productFridge.setMyFridges(myList.getProducts().get(i).getMyLists());
+                    productFridge.setOnfridge(myList.getProducts().get(i).getOnlist());
                     myProductFridge.add(productFridge);
                 }
             }

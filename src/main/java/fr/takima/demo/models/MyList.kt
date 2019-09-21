@@ -1,5 +1,6 @@
 package fr.takima.demo.models
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
 /**
@@ -10,11 +11,9 @@ data class MyList(
                 @GeneratedValue(strategy = GenerationType.IDENTITY)
                 @Id var id: Long?,
                 @OneToMany (mappedBy = "myProducts")
-                var myProducts: List<ProductList>?,
-                @ManyToMany (cascade = arrayOf(CascadeType.ALL))
-                @JoinTable(name = "userslist",
-                        joinColumns = arrayOf(JoinColumn(name = "id_list_user")),
-                        inverseJoinColumns = arrayOf(JoinColumn(name = "id_user_list")))
+                var Products: List<ProductList>?,
+                @JsonIgnore
+                @ManyToMany (mappedBy = "users", cascade = arrayOf(CascadeType.ALL))
                 var myUserList: List<User>?,
                 @OneToOne (cascade = arrayOf(CascadeType.ALL))
                 @JoinColumn(name = "id_list_fridge", referencedColumnName = "id")
