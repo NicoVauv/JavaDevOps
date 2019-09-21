@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title> MyFridge </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <html xmlns:th="http://www.thymeleaf.org">
+
+    <link href='<spring:url value="/resources/statics/lib/bootstrap.bundle.min.js>' rel="script"/>
+
+    <!--Bootsrap 4 CDN-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!--Fontawesome CDN-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css?family=Numans');
+
+        html, body {
+            background-image: url('https://yeknam.com/img/dmt/dmtblog/content/large-26.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 100%;
+            font-family: 'Numans', sans-serif;
+        }
+
+        .container {
+            height: 100%;
+            align-content: center;
+        }
+
+        .card {
+            height: 50%;
+            margin-top: auto;
+            margin-bottom: auto;
+            width: 75%;
+            background-color: rgba(0, 0, 0, 0.5) !important;
+        }
+
+        .titre h3 {
+            color: white;
+        }
+
+        .form-group {
+            color: black;
+            background-color: #a6ecbc;
+            width: auto;
+        }
+
+        .tableref {
+            color: gray;
+            width: 100%;
+            position: center;
+        }
+
+    </style>
+    </head>
+
+<body>
+
+
+<div class="container">
+    <div class="d-flex justify-content-center h-100">
+        <div class="card">
+            <div class="titre">
+                <h3> Mon frigo </h3>
+            </div>
+            <table class="table table-dark tableref">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col"> Références </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="frigo : ${myFridges}">
+                    <td scope="row" th:text="${frigo.reference}" type="submit"></td>
+                </tr>
+                </tbody>
+            </table>
+            <form method="post" th:action="@{/home/newFridge}" th:object="${myFridges}">
+                <div class="form-group">
+                    <input type="submit" value="Creer nouveau refrigerateur" class="btn float-right form-group">
+                </div>
+                <form>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
