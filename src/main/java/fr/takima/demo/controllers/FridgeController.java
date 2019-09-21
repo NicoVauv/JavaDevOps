@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,8 @@ public class FridgeController {
     }
     m.addAttribute("user", user);
     m.addAttribute("myFridges", myFridgeLists);
-    return "acceuil";
+    m.addAttribute("myFridge", new MyFridge());
+      return "acceuil";
   }
 
   @PostMapping("/newFridge")
@@ -79,14 +81,14 @@ public class FridgeController {
     return reference;
   }
 
-  @PostMapping("/voirFridge")
-  public RedirectView goToMyFridgePage(@ModelAttribute MyFridge myFridge, HttpServletResponse response) {
-    createCookie(myFridge, response);
+  @GetMapping("/voirFridge")
+  public RedirectView goToMyFridgePage(HttpServletRequest request, HttpServletResponse response) {
+      createCookie(request.getParameter("ref"), response);
     return new RedirectView("/dashboard");
   }
 
-  private void createCookie(MyFridge myFridge, HttpServletResponse response) {
-    Cookie cookie = new Cookie("reference", myFridge.getReference());
+  private void createCookie(String id_fridge, HttpServletResponse response) {
+    Cookie cookie = new Cookie("reference", id_fridge);
     response.addCookie(cookie);
   }
 

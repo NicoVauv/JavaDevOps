@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title> MyFridge </title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <html xmlns:th="http://www.thymeleaf.org">
-
     <link href='<spring:url value="/resources/statics/lib/bootstrap.bundle.min.js>' rel="script"/>
 
     <!--Bootsrap 4 CDN-->
@@ -64,13 +63,13 @@
 
 <body>
 
-
 <div class="container">
     <div class="d-flex justify-content-center h-100">
         <div class="card">
             <div class="titre">
                 <h3> Mon frigo </h3>
             </div>
+            <form method="get" th:action="@{/home/voirFridge}">
             <table class="table table-dark tableref">
                 <thead class="thead-light">
                 <tr>
@@ -79,10 +78,12 @@
                 </thead>
                 <tbody>
                 <tr th:each="frigo : ${myFridges}">
-                    <td scope="row" th:text="${frigo.reference}" type="submit"></td>
+                    <td scope="row"><button class="btn btn-success" name = "ref" th:value = "${frigo.reference}" th:text="${frigo.reference}" type="submit" ></button>
+                </td>
                 </tr>
                 </tbody>
             </table>
+            </form>
             <form method="post" th:action="@{/home/newFridge}" th:object="${myFridges}">
                 <div class="form-group">
                     <input type="submit" value="Creer nouveau refrigerateur" class="btn float-right form-group">
