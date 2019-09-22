@@ -65,16 +65,6 @@ public class ProductController {
         return "index";
     }
 
-    private String readAllCookies(HttpServletRequest request) {
-
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            return Arrays.stream(cookies)
-                    .map(c -> c.getName() + "=" + c.getValue()).collect(Collectors.joining(", "));
-        }
-
-        return "No cookies";
-    }
     // Add a product in the product list
     @PostMapping("/add")
     public RedirectView addNewProduct(@ModelAttribute Product product, RedirectAttributes attrs) {

@@ -17,4 +17,10 @@ data class ProductFridge (
         @Column(name = "onfridge")
         var onfridge: Int?){
     constructor() : this(null, null, null, null)
+
+        override fun toString(): String {
+                return "ProductFridge(id=$id)"
+        }
+
+
 }

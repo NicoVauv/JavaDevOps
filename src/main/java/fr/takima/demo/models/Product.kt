@@ -18,4 +18,9 @@ data class Product(
                 @Column(name = "name") var name: String?){
     constructor() : this(null, null, null, null, null)
 
+    override fun toString(): String {
+        return "Product(id=$id)"
+    }
+
+
 }

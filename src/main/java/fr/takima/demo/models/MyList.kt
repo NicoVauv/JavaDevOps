@@ -20,4 +20,9 @@ data class MyList(
                 var myFridge: MyFridge?) {
     constructor() : this(null, null, null,null)
 
+    override fun toString(): String {
+        return "MyList(id=$id)"
+    }
+
+
 }

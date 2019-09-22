@@ -16,4 +16,9 @@ data class MyFridge(
                 @Column(name = "reference") var reference: String?) {
     constructor() : this(null, null, null, null)
 
+    override fun toString(): String {
+        return "MyFridge(id=$id)"
+    }
+
+
 }

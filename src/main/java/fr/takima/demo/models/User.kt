@@ -20,4 +20,10 @@ data class User(
                 inverseJoinColumns = arrayOf(JoinColumn(name = "id_list_user")))
         var users: List<MyList>?) {
     constructor() : this(null, null, null, null, null)
+
+    override fun toString(): String {
+        return "User(id=$id)"
+    }
+
+
 }

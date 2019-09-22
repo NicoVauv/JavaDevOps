@@ -17,4 +17,10 @@ data class ProductList (
     @Column(name = "onlist")
     var onlist: Int?){
         constructor() : this(null, null, null, null)
+
+    override fun toString(): String {
+        return "ProductList(id=$id)"
     }
+
+
+}
