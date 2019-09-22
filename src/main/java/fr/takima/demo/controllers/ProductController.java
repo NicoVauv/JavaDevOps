@@ -67,15 +67,15 @@ public class ProductController {
 
     // Add a product in the product list
     @PostMapping("/add")
-    public RedirectView addNewProduct(@ModelAttribute Product product, RedirectAttributes attrs) {
+    public RedirectView addNewProduct(@ModelAttribute Product product, RedirectAttributes attrs, @PathVariable(value="ref") final String id_fridge) {
         attrs.addFlashAttribute("message", "Your product has been added");
         productDAO.save(product);
-        return new RedirectView("/dashboard");
+        return new RedirectView("/dashboard" + "/" + id_fridge);
     }
 
     // Add a product in my list
-    @PostMapping("/addList")
-    public RedirectView addToTheList(@ModelAttribute Product product, RedirectAttributes attrs, @CookieValue(value = "reference", defaultValue = "null") String id_fridge) {
+    @PostMapping(value={"/{ref}/addList"})
+    public RedirectView addToTheList(@ModelAttribute Product product, RedirectAttributes attrs, @PathVariable(value="ref") final String id_fridge) {
         attrs.addFlashAttribute("message", "Your product has been added to your list");
         MyFridge myFridge = fridgeDAO.findMyFridgeByReference(id_fridge);
         MyList myList = listDAO.findMyListByMyFridge(myFridge);
@@ -88,12 +88,12 @@ public class ProductController {
         List<ProductList> myProductList = myList.getProducts();
         myProductList.add(productList);
         myList.setProducts(myProductList);
-        return new RedirectView("/dashboard");
+        return new RedirectView("/dashboard" + "/" + id_fridge);
     }
 
     // Release a product in my list
-    @PostMapping("/releaseQuantity")
-    public RedirectView releaseQuantity(@ModelAttribute Product product, RedirectAttributes attrs, @CookieValue(value = "reference", defaultValue = "null") String id_fridge) {
+    @PostMapping(value={"/{ref}/releaseQuantity"})
+    public RedirectView releaseQuantity(@ModelAttribute Product product, RedirectAttributes attrs, @PathVariable(value="ref") final String id_fridge) {
        attrs.addFlashAttribute("message", "Your product has been released from your list");
         MyFridge myFridge = fridgeDAO.findMyFridgeByReference(id_fridge);
         MyList myList = listDAO.findMyListByMyFridge(myFridge);
@@ -110,12 +110,12 @@ public class ProductController {
             }
         }
 
-       return new RedirectView("/dashboard");
+       return new RedirectView("/dashboard" + "/" + id_fridge);
     }
 
     // Release a product in my list
-    @PostMapping("/addQuantity")
-    public RedirectView addQuantity(@ModelAttribute Product product, RedirectAttributes attrs, @CookieValue(value = "reference", defaultValue = "null") String id_fridge) {
+    @PostMapping(value={"/{ref}/addQuantity"})
+    public RedirectView addQuantity(@ModelAttribute Product product, RedirectAttributes attrs, @PathVariable(value="ref") final String id_fridge) {
         attrs.addFlashAttribute("message", "Your product has been released from your list");
         MyFridge myFridge = fridgeDAO.findMyFridgeByReference(id_fridge);
         MyList myList = listDAO.findMyListByMyFridge(myFridge);
@@ -126,12 +126,12 @@ public class ProductController {
                productList.get(i).setOnlist(productList.get(i).getOnlist() + 1);
            }
         }
-       return new RedirectView("/dashboard");
+       return new RedirectView("/dashboard" + "/" + id_fridge);
     }
 
     // Add a product list in my fridge
-    @PostMapping("/addFridge")
-    public RedirectView addToTheFridge(@ModelAttribute MyList myList, RedirectAttributes attrs, @CookieValue(value = "reference", defaultValue = "null") String id_fridge) {
+    @PostMapping(value={"/{ref}/addFridge"})
+    public RedirectView addToTheFridge(@ModelAttribute MyList myList, RedirectAttributes attrs, @PathVariable(value="ref") final String id_fridge) {
         attrs.addFlashAttribute("message", "Your list has been added to your fridge");
         MyFridge myFridge = fridgeDAO.findMyFridgeByReference(id_fridge);
         ProductFridge productFridge = new ProductFridge();
@@ -152,7 +152,7 @@ public class ProductController {
             }
 
         }
-        return new RedirectView("/dashboard");
+        return new RedirectView("/dashboard" + "/" + id_fridge);
     }
 
 }
