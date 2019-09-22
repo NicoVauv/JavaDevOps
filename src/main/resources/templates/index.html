@@ -86,42 +86,64 @@
     <a class="btn btn-primary" href="/login">Deconnection</a>
   </div>
 
-  <!--/*@thymesVar id="productslist" type=""*/-->
+
 
   <div class="gauche">
     <p>Choisissez votre produit</p>
     <br>
       <form method="post" th:action="@{/selectCategory}" th:object="${products}">
-    <div class="dropdown">
-      <select th:field="${products}" name = "category" aria-labelledby="dropdownMenuButton" class="btn btn-secondary dropdown-toggl" id="dropdownMenuButton">
-        <option class="dropdown-item" th:each="i :${products}" th:value="${i}" th:text="${i}"></option>
-      </select>
-        <!-- si ne focntionne pas passer par onclick-->
-    </div>
-      </form>
+          <div class="btn-group">
+              <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Category
+              </button>
+              <div class="dropdown-menu">
+                  <a class="dropdown-item" type="submit">Food</a>
+                  <a class="dropdown-item" type="submit">Drink</a>
+              </div>
+          </div>
 
-      <form method="post" th:action="@{/chooseProduct}" th:object="${products}">
-      <tr th:each="listeproduit : ${products}">
-          <td scope="row" th:text="${listeproduit.category}" type="submit"></td>
-      </tr>
+
+
+          <!--<div class="dropdown">
+      <select th:text="${products}" name = "category" aria-labelledby="dropdownMenuButton" class="btn btn-secondary dropdown-toggl" id="dropdownMenuButton">
+&lt;!&ndash;        <option class="dropdown-item" th:each="i :${product.category}" th:value="${i}" th:text="${i}"></option>&ndash;&gt;
+          <option value="Food" >Food</option>
+          <option value="Drink" >Drink</option>
+      </select>
+        &lt;!&ndash; si ne focntionne pas passer par onclick&ndash;&gt;
+    </div>-->
+      </form>
+      <br>
+
+      <form method="post" th:action="@{/dashboard/{ref}}" th:object="${products}">
+          <tbody>
+          <tr th:each="produit : ${products}">
+              <td scope="row"><button class="btn btn-success" name = "ref" th:value = "${produit.name}" th:text="${produit.name}" type="submit" ></button>
+              </td>
+          </tr>
+          </tbody>
       </form>
       !<!-- get et post en meme temps ! tester-->
 
     <br>
-      <form method="post" th:action="@{/selectQuantity}" th:object="${productslist}">
+      <form method="post" th:action="@{/dashboard/{ref}/addQuantity}" th:object="${products}">
       <label>Quantité</label> :
-      <input type="number" th:field="${onlist}"id="tentacles" name="quantité">
-      <!--    <label>Quantité</label> : <a action class="btn btn-primary">+</a> &nbsp; <a class="btn btn-primary"> - </a>-->
-    <div class="btn-group float-right m-3">
-      <a class="btn btn-primary">Add</a>
-    </div>
+      <input class="btn btn-primary" type="submit" value="+"></form>
+
+      <form method="post" th:action="@{/dashboard/{ref}/releaseQuantity}" th:object="${products}">
+          <input class="btn btn-primary" type="submit" value="-">
       </form>
 
+      <form method="post" th:action="@{/dashboard/add}">
+      <div class="btn-group float-right m-3">
+          <a class="btn btn-primary" type="submit">Add</a>
+      </div>
+      </form>
 
-      <form method="post" th:action="@{/login}" th:object="${products}">
+      <form method="post" th:action="@{/dashboard/{ref}/addFridge}" th:object="${products}">
       <div class=""ajouterProduit>
           <label>Ajoutez un produit</label> :
-          <input type="text" class="form-control" placeholder="name" th:field="*{name}"><br>
+<!--          <input type="text" class="form-control" placeholder="name" th:field="*{name}"><br>-->
       </div>
       </form>
   </div>
@@ -138,8 +160,8 @@
       </tr>
       </thead>
       <tbody>
-      <tr th:each="list : ${mylist}">
-        <td scope="row" th:text="${list.id}"></td>
+      <tr th:each="list : ${myProductFridge}">
+        <td scope="row" th:text="${list.getMyProducts()}"></td>
 <!--        <td th:text="${}"></td>-->
       </tr>
       </tbody>
@@ -159,8 +181,8 @@
       </tr>
       </thead>
       <tbody>
-      <tr th:each="frigo : ${myfridge}">
-        <td scope="row" th:text="${frigo.reference}"></td>
+      <tr th:each="frigo : ${myProductFridge}">
+        <td scope="row" th:text="${frigo.getMyFridges()}"></td>
       </tr>
       </tbody>
     </table>
