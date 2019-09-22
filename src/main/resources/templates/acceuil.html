@@ -78,7 +78,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="frigo : ${myFridges}">
-                    <td scope="row"><button class="btn btn-success" name = "ref" th:value = "${frigo.reference}" th:text="${frigo.reference}" type="submit" ></button>
+                    <td scope="row"><button class="btn btn-success" name = "ref" th:value = "*{frigo.reference}" th:text="*{frigo.reference}" type="submit" ></button>
                 </td>
                 </tr>
                 </tbody>
