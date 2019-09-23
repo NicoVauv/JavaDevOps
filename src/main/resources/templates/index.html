@@ -35,7 +35,7 @@
     .milieu {
       position: absolute ;
       top: 15%;
-      left: 36%;
+      left: 37.5%;
       width: 25%;
     }
     .droite {
@@ -97,25 +97,25 @@
     <br>
       <form method="post" th:action="@{/selectCategory}" th:object="${products}">
           <div class="btn-group">
-              <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" >
                   Category
               </button>
               <div class="dropdown-menu">
-                  <a class="dropdown-item" type="selected">Food</a>
-                  <a class="dropdown-item" type="selected">Drink</a>
+                  <a class="dropdown-item" type="selected" th:field="${food}">Food</a>
+                  <a class="dropdown-item" type="selected" th:field="${drink}">Drink</a>
               </div>
           </div>
 
 
 
-          <!--<div class="dropdown">
-      <select th:text="${products}" name = "category" aria-labelledby="dropdownMenuButton" class="btn btn-secondary dropdown-toggl" id="dropdownMenuButton">
-&lt;!&ndash;        <option class="dropdown-item" th:each="i :${product.category}" th:value="${i}" th:text="${i}"></option>&ndash;&gt;
-          <option value="Food" >Food</option>
-          <option value="Drink" >Drink</option>
+          <div class="dropdown">
+      <select th:each="${products}" name = "category" aria-labelledby="dropdownMenuButton" class="btn btn-secondary dropdown-toggl" id="dropdownMenuButton">
+<!--          <option class="dropdown-item" th:text="${get  }" th:value="${i}" th:text="${i}"></option>-->
+        <option value="Food" th:field="${}" >Food</option>
+        <option value="Drink" >Drink</option>
       </select>
-        &lt;!&ndash; si ne focntionne pas passer par onclick&ndash;&gt;
-    </div>-->
+
+    </div>
       </form>
       <br>
 
@@ -131,21 +131,19 @@
       !<!-- get et post en meme temps ! tester-->
 
     <br>
-     -->
-      <form method="post" th:action="@{/dashboard/add}">
-      <div class="btn-group float-right m-3">
-          <a class="btn btn-primary" type="submit">Add</a>
-      </div>
-      </form>
 
-      <form method="post" th:action="@{/dashboard/{ref}/addFridge}" th:object="${products}">
-      <div class=""ajouterProduit>
+      <form method="post" th:action="@{/dashboard/{ref}/add}" th:object="${product}">
+
           <label>Ajoutez un produit</label> :
-<!--          <input type="text" class="form-control" placeholder="name" th:field="*{name}"><br>-->
-      </div>
+            <input type="text" class="form-control" placeholder="category" th:value="*{category}"><br>
+            <input type="text" class="form-control" placeholder="name" th:value="*{name}"><br>
+
+              <button class="btn btn-primary" type="submit">Add</button>
+
+
       </form>
   </div>
-  </form>
+
 
 <div class="milieu">
   <label>Ma liste de courses</label>
@@ -155,15 +153,24 @@
         <th scope="col">Categorie</th>
         <th scope="col">Produit</th>
         <th scope="col">Nb</th>
+        <th scope="col">+/-</th>
       </tr>
       </thead>
       <tbody>
       <tr th:each="list : ${myProductList}">
         <td scope="row" th:text="${list.getMyLists().category }"></td>
           <td  th:text="${list.getMyLists().name }"></td>
-          <td  th:text="${list.getOnlist()}"> <button class="btn btn-primary" type="submit" value="+">+</button><button class="btn btn-primary" type="submit" value="-">-</button></td>
-          <td>    <button class="btn btn-primary" type="submit" value="+">+</button><button class="btn btn-primary" type="submit" value="-">-</button> </td>
-<!--
+          <td  th:text="${list.getOnlist()}"></td>
+          <td>
+              <form method="post" th:action="@{/dashboard/{ref}/addQuantity}" th:object="${product}">
+                  <button class="btn btn-primary" type="submit" value="+">+</button>
+
+          </form>
+              <form method="post" th:action="@{/dashboard/{ref}/releaseQuantity}" th:object="${product}">
+          <button class="btn btn-primary" type="submit" value="-">-</button>
+              </form>
+          </td>
+          <!--</
       </tr>
       </tbody>
     </table>
