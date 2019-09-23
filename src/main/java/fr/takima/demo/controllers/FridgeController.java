@@ -59,6 +59,7 @@ public class FridgeController {
     fridgeDAO.save(myFridge);
 
     User user = userDAO.findById(Long.parseLong(id_user)).get();
+    System.out.println("ID : " + id_user);
     List<User> userList = new ArrayList<>();
     userList.add(user);
     MyList myList = new MyList();
