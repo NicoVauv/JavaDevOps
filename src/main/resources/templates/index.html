@@ -88,7 +88,7 @@
 
 <div class="btn-group ">
     <form method="post" th:action="@{/dashboard/changeFridge}">
-        <a class="btn btn-primary" href="/acceuil">Changer Frigo</a>
+        <a class="btn btn-primary" href="/home">Changer Frigo</a>
     </form>
     <form method="post" th:action="@{/dashboard/logout}" th:object="${products}">
         <a class="btn btn-primary" href="/login">Deconnection</a>
@@ -100,30 +100,20 @@
     <p>Choisissez votre produit</p>
     <br>
 
-      <form method="post" th:action="@{/selectCategory}" th:object="${products}">
-          <div class="btn-group">
-              <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" >
-                  Category
-              </button>
-              <div class="dropdown-menu">
-                  <a class="dropdown-item" type="selected" >Food</a>
-                  <a class="dropdown-item" type="selected" >Drink</a>
-              </div>
-          </div>
-
-
-    <form method="get" th:action="@{/dashboard/selectCategory}">
-        <div class="dropdown">
-            <label for="dropdownMenuButton">
-                <select aria-labelledby="dropdownMenuButton" class="btn btn-secondary dropdown-toggl"
-                        id="dropdownMenuButton">
-                    <option value="All" name = "All" th:value="All">All</option>
-                    <option value="Food" name = "Food" th:value="Food">Food</option>
-                    <option value="Drink" name = "Drink" th:value="Drink">Drink</option>
-                </select>
-            </label>
-        </div>
-
+        <form method="get" th:action="@{/dashboard/selectCategory}">
+            <tbody>
+            <tr >
+                <td scope="row">
+                    <button class="btn btn-primary" name="All" th:text="All"
+                            th:value="All" type="submit">All</button></td>
+                <td scope="row">
+                    <button class="btn btn-primary" name="Food" th:value="Food"
+                            th:text="Food" type="submit">Food</button></td>
+                <td scope="row">
+                    <button class="btn btn-primary" name="Drink" th:value="Drink"
+                            th:text="Drink" type="submit">Drink</button></td>
+            </tr>
+            </tbody>
     </form>
     <br>
 
@@ -143,8 +133,19 @@
     <form method="post" th:action="@{/dashboard/add}" th:object="${product}">
 
         <label>Ajoutez un produit</label> :
-        <input type="text" class="form-control" placeholder="category" th:value="*{category}"><br>
-        <input type="text" class="form-control" placeholder="name" th:value="*{name}"><br>
+
+            <div class="dropdown">
+                <label for="dropdownMenuButton">
+                    <select aria-labelledby="dropdownMenuButton" class="btn btn-secondary dropdown-toggl"
+                            id="dropdownMenuButton2">
+                        <option value="All" name = "All" th:value="All">All</option>
+                        <option value="Food" name = "Food" th:value="Food">Food</option>
+                        <option value="Drink" name = "Drink" th:value="Drink">Drink</option>
+                    </select>
+                </label>
+            </div>
+
+        <input type="text" class="form-control" placeholder="name" th:value="*{name}" th:field="*{name}"><br>
 
         <button class="btn btn-primary" type="submit">Add</button>
 
