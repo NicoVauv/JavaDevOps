@@ -3,98 +3,103 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <title> MyFridge </title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-  <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
-  <link href='<spring:url value="/resources/statics/lib/bootstrap.bundle.min.js>' rel="script" />
+    <title> MyFridge </title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+    <link href='<spring:url value="/resources/statics/lib/bootstrap.bundle.min.js>' rel="script"/>
 
-  <!--Bootsrap 4 CDN-->
-  <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" rel="stylesheet">
-  <!--Fontawesome CDN-->
-  <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" rel="stylesheet">
+    <!--Bootsrap 4 CDN-->
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" rel="stylesheet">
+    <!--Fontawesome CDN-->
+    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" rel="stylesheet">
 
-  <style type="text/css">
-    @import url('https://fonts.googleapis.com/css?family=Numans');
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css?family=Numans');
 
-    html,body{
-      /*background-image: url('https://yeknam.com/img/dmt/dmtblog/content/large-26.jpg');*/
-      background-size: cover;
-      background-repeat: no-repeat;
-      height: 100%;
-      font-family: 'Numans', sans-serif;
-      padding:1px 0
-    }
+        html, body {
+            /*background-image: url('https://yeknam.com/img/dmt/dmtblog/content/large-26.jpg');*/
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 100%;
+            font-family: 'Numans', sans-serif;
+            padding: 1px 0
+        }
 
-    .gauche {
-      position: absolute;
-      top: 15%;
-      margin-left : 6.25%;
-      width: 25%;
-      left : 0%;
-    }
-    .milieu {
-      position: absolute ;
-      top: 15%;
-      left: 37.5%;
-      width: 25%;
-    }
-    .droite {
-      position : absolute;
-      top: 15%;
-      margin-right : 6.25%;
-      width: 25%;
-      right : 0%;
-    }
+        .gauche {
+            position: absolute;
+            top: 15%;
+            margin-left: 6.25%;
+            width: 25%;
+            left: 0%;
+        }
 
-    .btn-group   {
+        .milieu {
+            position: absolute;
+            top: 15%;
+            left: 37.5%;
+            width: 25%;
+        }
 
-      float : right;
-      width: 25%;
-      margin-right : 6.25%;
-      margin-bottom : 5%;
-    }
+        .droite {
+            position: absolute;
+            top: 15%;
+            margin-right: 6.25%;
+            width: 25%;
+            right: 0%;
+        }
 
-    .card-header h3{
-      color: white;
-    }
+        .btn-group {
 
-    .input-group-prepend span{
-      width: 50px;
-      background-color: #a6ecbc;
-      color: black;
-      border:0 !important;
-    }
+            float: right;
+            width: 25%;
+            margin-right: 6.25%;
+            margin-bottom: 5%;
+        }
 
-    input:focus{
-      outline: 0 0 0 0  !important;
-      box-shadow: 0 0 0 0 !important;
+        .card-header h3 {
+            color: white;
+        }
 
-    }
+        .input-group-prepend span {
+            width: 50px;
+            background-color: #a6ecbc;
+            color: black;
+            border: 0 !important;
+        }
 
-    .links a{
-      margin-left: 4px;
-    }
-  </style>
+        input:focus {
+            outline: 0 0 0 0 !important;
+            box-shadow: 0 0 0 0 !important;
+
+        }
+
+        .links a {
+            margin-left: 4px;
+        }
+    </style>
 
 </head>
 
 <body style="background-color: darkslategrey; color: floralwhite;">
-  <p>Welcome!</p>
+<p>Welcome!</p>
 
-  <div class="btn-group ">
-      <form method="post" th:action="@{/dashboard/changeFridge}" >
-    <a class="btn btn-primary" href="/acceuil">Changer Frigo</a>
-      </form>
-      <form method="post" th:action="@{/dashboard/logout}" th:object="${products}">
-    <a class="btn btn-primary" href="/login">Deconnection</a>
-      </form>
-  </div>
+<div class="btn-group ">
+    <form method="post" th:action="@{/dashboard/changeFridge}">
+        <a class="btn btn-primary" href="/acceuil">Changer Frigo</a>
+    </form>
+    <form method="post" th:action="@{/dashboard/logout}" th:object="${products}">
+        <a class="btn btn-primary" href="/login">Deconnection</a>
+    </form>
+</div>
 
 
-
-  <div class="gauche">
+<div class="gauche">
     <p>Choisissez votre produit</p>
     <br>
+<<<<<<< HEAD
       <form method="post" th:action="@{/selectCategory}" th:object="${products}">
           <div class="btn-group">
               <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" >
@@ -114,105 +119,109 @@
         <option value="Food" th:field="${}" >Food</option>
         <option value="Drink" >Drink</option>
       </select>
+=======
+    <form method="get" th:action="@{/dashboard/selectCategory}">
+        <div class="dropdown">
+            <label for="dropdownMenuButton">
+                <select aria-labelledby="dropdownMenuButton" class="btn btn-secondary dropdown-toggl"
+                        id="dropdownMenuButton">
+                    <option value="All" name = "All" th:value="All">All</option>
+                    <option value="Food" name = "Food" th:value="Food">Food</option>
+                    <option value="Drink" name = "Drink" th:value="Drink">Drink</option>
+                </select>
+            </label>
+        </div>
 
-    </div>
-      </form>
-      <br>
+    </form>
+    <br>
+>>>>>>> 22a777dfc5cfa2d4273d4b5b8201f0d2db460168
 
-      <form method="post" th:action="@{/dashboard/{ref}/addList}">
-          <tbody>
-          <tr th:each="produit : ${products}">
-              <td scope="row"><button class="btn btn-success" name = "prod" th:value = "${produit.name}"
-                                      th:text="${produit.name}" type="submit"></button>
-              </td>
-          </tr>
-          </tbody>
-      </form>
-      !<!-- get et post en meme temps ! tester-->
+    <form method="post" th:action="@{/dashboard/addList}">
+        <tbody>
+        <tr th:each="produit : ${products}">
+            <td scope="row">
+                <button class="btn btn-success" name="prod" th:value="${produit.name}"
+                        th:text="${produit.name}" type="submit"></button>
+            </td>
+        </tr>
+        </tbody>
+    </form>
 
     <br>
 
-      <form method="post" th:action="@{/dashboard/{ref}/add}" th:object="${product}">
+    <form method="post" th:action="@{/dashboard/add}" th:object="${product}">
 
-          <label>Ajoutez un produit</label> :
-            <input type="text" class="form-control" placeholder="category" th:value="*{category}"><br>
-            <input type="text" class="form-control" placeholder="name" th:value="*{name}"><br>
+        <label>Ajoutez un produit</label> :
+        <input type="text" class="form-control" placeholder="category" th:value="*{category}"><br>
+        <input type="text" class="form-control" placeholder="name" th:value="*{name}"><br>
 
-              <button class="btn btn-primary" type="submit">Add</button>
+        <button class="btn btn-primary" type="submit">Add</button>
 
 
-      </form>
-  </div>
+    </form>
+</div>
 
 
 <div class="milieu">
-  <label>Ma liste de courses</label>
+    <label>Ma liste de courses</label>
     <table class="table table-striped table-dark">
-      <thead class="thead-light">
-      <tr>
-        <th scope="col">Categorie</th>
-        <th scope="col">Produit</th>
-        <th scope="col">Nb</th>
-        <th scope="col">+/-</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr th:each="list : ${myProductList}">
-        <td scope="row" th:text="${list.getMyLists().category }"></td>
-          <td  th:text="${list.getMyLists().name }"></td>
-          <td  th:text="${list.getOnlist()}"></td>
-          <td>
-              <form method="post" th:action="@{/dashboard/{ref}/addQuantity}" th:object="${product}">
-                  <button class="btn btn-primary" type="submit" value="+">+</button>
-
-          </form>
-              <form method="post" th:action="@{/dashboard/{ref}/releaseQuantity}" th:object="${product}">
-          <button class="btn btn-primary" type="submit" value="-">-</button>
-              </form>
-          </td>
-          <!--</
-      </tr>
-      </tbody>
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Category</th>
+            <th scope="col">Product</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">+</th>
+            <th scope="col">-</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="list : ${myProductList}">
+            <td scope="row" th:text="${list.getMyLists().category}"></td>
+            <td th:text="${list.getMyLists().name}"></td>
+            <td th:text="${list.getOnlist()}"></td>
+            <td>
+                <form method="post" th:action="@{/dashboard/addQuantity}" th:object="${product}">
+                    <button class="btn btn-primary" type="submit" th:field="*{name}">+</button>
+                </form>
+            </td>
+            <td>
+                <form method="post" th:action="@{/dashboard/releaseQuantity}" th:object="${product}">
+                    <button class="btn btn-primary" type="submit" th:field="*{name}">-</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
     </table>
 
-    <!-- <form method="post" th:action="@{/dashboard/{ref}/addQuantity}" th:object="${products}">
-      <label>Quantité</label> :
-      <input class="btn btn-primary" type="submit" value="+"></form>
-
-      <form method="post" th:action="@{/dashboard/{ref}/releaseQuantity}" th:object="${products}">
-          <input class="btn btn-primary" type="submit" value="-">
-      </form>-->
-
-  </div>
-
-  <aside>
+</div>
+<aside>
     <div class="droite">
-      <label>Mon frigo</label>
-    <table class="table table-striped table-dark">
-      <thead class="thead-light">
-      <tr>
-        <th scope="col">Category</th>
-        <th scope="col">Name</th>
-        <th scope="col">Number</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr th:each="frigo : ${myProductFridge}">
-        <td scope="row" th:text="${frigo.getMyFridges().category}"></td>
-          <td th:text="${frigo.getMyFridges().name}"></td>
-          <td th:text="${frigo.getOnfridge()}"></td>
-
-
-      </tr>
-      </tbody>
-    </table>
+        <label>Mon frigo</label>
+        <table class="table table-striped table-dark">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Category</th>
+                <th scope="col">Product</th>
+                <th scope="col">Quantity</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="frigo : ${myProductFridge}">
+                <td scope="row" th:text="${frigo.getMyFridges().category}"></td>
+                <td th:text="${frigo.getMyFridges().name}"></td>
+                <td th:text="${frigo.getOnfridge()}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-  </aside>
-
+</aside>
 
 
 </body>
-<script crossorigin="anonymous" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script crossorigin="anonymous" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script crossorigin="anonymous" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script crossorigin="anonymous" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script crossorigin="anonymous" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script crossorigin="anonymous" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </html>
