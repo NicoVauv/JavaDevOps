@@ -99,7 +99,7 @@
 <div class="gauche">
     <p>Choisissez votre produit</p>
     <br>
-<<<<<<< HEAD
+
       <form method="post" th:action="@{/selectCategory}" th:object="${products}">
           <div class="btn-group">
               <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" >
@@ -112,14 +112,6 @@
           </div>
 
 
-
-          <div class="dropdown">
-      <select th:each="${products}" name = "category" aria-labelledby="dropdownMenuButton" class="btn btn-secondary dropdown-toggl" id="dropdownMenuButton">
-<!--          <option class="dropdown-item" th:text="${get  }" th:value="${i}" th:text="${i}"></option>-->
-        <option value="Food" th:field="${}" >Food</option>
-        <option value="Drink" >Drink</option>
-      </select>
-=======
     <form method="get" th:action="@{/dashboard/selectCategory}">
         <div class="dropdown">
             <label for="dropdownMenuButton">
