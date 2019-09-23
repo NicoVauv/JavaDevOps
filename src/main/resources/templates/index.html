@@ -82,8 +82,12 @@
   <p>Welcome!</p>
 
   <div class="btn-group ">
+      <form method="post" th:action="@{/changeFridge}" >
     <a class="btn btn-primary" href="/acceuil">Changer Frigo</a>
+      </form>
+      <form method="post" th:action="@{/logout}" th:object="${products}">
     <a class="btn btn-primary" href="/login">Deconnection</a>
+      </form>
   </div>
 
 
