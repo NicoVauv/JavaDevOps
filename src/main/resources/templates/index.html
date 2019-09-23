@@ -35,7 +35,7 @@
     .milieu {
       position: absolute ;
       top: 15%;
-      left: 37.5%;
+      left: 36%;
       width: 25%;
     }
     .droite {
@@ -101,8 +101,8 @@
                   Category
               </button>
               <div class="dropdown-menu">
-                  <a class="dropdown-item" type="submit">Food</a>
-                  <a class="dropdown-item" type="submit">Drink</a>
+                  <a class="dropdown-item" type="selected">Food</a>
+                  <a class="dropdown-item" type="selected">Drink</a>
               </div>
           </div>
 
@@ -119,10 +119,11 @@
       </form>
       <br>
 
-      <form method="post" th:action="@{/dashboard/{ref}}" th:object="${products}">
+      <form method="post" th:action="@{/dashboard/{ref}/addList}">
           <tbody>
           <tr th:each="produit : ${products}">
-              <td scope="row"><button class="btn btn-success" name = "ref" th:value = "${produit.name}" th:text="${produit.name}" type="submit" ></button>
+              <td scope="row"><button class="btn btn-success" name = "prod" th:value = "${produit.name}"
+                                      th:text="${produit.name}" type="submit"></button>
               </td>
           </tr>
           </tbody>
@@ -130,14 +131,7 @@
       !<!-- get et post en meme temps ! tester-->
 
     <br>
-      <form method="post" th:action="@{/dashboard/{ref}/addQuantity}" th:object="${products}">
-      <label>Quantité</label> :
-      <input class="btn btn-primary" type="submit" value="+"></form>
-
-      <form method="post" th:action="@{/dashboard/{ref}/releaseQuantity}" th:object="${products}">
-          <input class="btn btn-primary" type="submit" value="-">
-      </form>
-
+     -->
       <form method="post" th:action="@{/dashboard/add}">
       <div class="btn-group float-right m-3">
           <a class="btn btn-primary" type="submit">Add</a>
@@ -160,18 +154,27 @@
       <tr>
         <th scope="col">Categorie</th>
         <th scope="col">Produit</th>
-        <th scope="col">Quantité</th>
+        <th scope="col">Nb</th>
       </tr>
       </thead>
       <tbody>
       <tr th:each="list : ${myProductList}">
         <td scope="row" th:text="${list.getMyLists().category }"></td>
           <td  th:text="${list.getMyLists().name }"></td>
-          <td  th:text="${list.getOnlist() }"></td>
-<!--        <td th:text="${}"></td>-->
+          <td  th:text="${list.getOnlist()}"> <button class="btn btn-primary" type="submit" value="+">+</button><button class="btn btn-primary" type="submit" value="-">-</button></td>
+          <td>    <button class="btn btn-primary" type="submit" value="+">+</button><button class="btn btn-primary" type="submit" value="-">-</button> </td>
+<!--
       </tr>
       </tbody>
     </table>
+
+    <!-- <form method="post" th:action="@{/dashboard/{ref}/addQuantity}" th:object="${products}">
+      <label>Quantité</label> :
+      <input class="btn btn-primary" type="submit" value="+"></form>
+
+      <form method="post" th:action="@{/dashboard/{ref}/releaseQuantity}" th:object="${products}">
+          <input class="btn btn-primary" type="submit" value="-">
+      </form>-->
 
   </div>
 
