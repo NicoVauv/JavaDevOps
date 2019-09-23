@@ -12,8 +12,10 @@ data class MyList(
                 @Id var id: Long?,
                 @OneToMany (mappedBy = "myProducts")
                 var Products: List<ProductList>?,
-                @JsonIgnore
-                @ManyToMany (mappedBy = "users", cascade = arrayOf(CascadeType.ALL))
+                @ManyToMany
+                @JoinTable(name = "userslist",
+                        joinColumns = arrayOf(JoinColumn(name = "id_list_user")),
+                        inverseJoinColumns = arrayOf(JoinColumn(name = "id_user_list")))
                 var myUserList: List<User>?,
                 @OneToOne (cascade = arrayOf(CascadeType.ALL))
                 @JoinColumn(name = "id_list_fridge", referencedColumnName = "id")
