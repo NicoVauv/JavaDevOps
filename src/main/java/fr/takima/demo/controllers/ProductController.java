@@ -30,6 +30,7 @@ public class ProductController {
     private final ListDAO listDAO;
     private final FridgeDAO fridgeDAO;
     private final ProductListDAO productListDAO;
+    private static String reference;
 
 
     public ProductController(ProductDAO productDAO, ListDAO listDAO, FridgeDAO fridgeDAO, ProductListDAO productListDAO) {
@@ -40,8 +41,9 @@ public class ProductController {
     }
 
     // Get products from home page
-    @GetMapping(value={"/{ref}"})
+    @GetMapping("/{ref}")
     public String showAll(Model m, @PathVariable(value="ref") final String id_fridge) {
+        reference = id_fridge;
         MyFridge myFridge = fridgeDAO.findMyFridgeByReference(id_fridge);
         MyList myList = listDAO.findMyListByMyFridge(myFridge);
         List<ProductList> myProductList = new ArrayList<>();
@@ -66,56 +68,60 @@ public class ProductController {
     }
 
     // Add a product in the product list
-    @PostMapping(value={"/{ref}/add"})
-    public RedirectView addNewProduct(@ModelAttribute Product product, RedirectAttributes attrs, @PathVariable(value="ref") final String id_fridge) {
+    @PostMapping("/add")
+    public RedirectView addNewProduct(@ModelAttribute Product product, RedirectAttributes attrs) {
         attrs.addFlashAttribute("message", "Your product has been added");
         productDAO.save(product);
-        return new RedirectView("/dashboard" + "/" + id_fridge);
+        return new RedirectView("/dashboard" + "/" + reference);
     }
 
     // Add a product in my list
-    @PostMapping(value={"/{ref}/addList"})
-    public RedirectView addToTheList(RedirectAttributes attrs, @PathVariable(value="ref") final String id_fridge, HttpServletRequest request) {
+    @PostMapping("/addList")
+    public RedirectView addToTheList(RedirectAttributes attrs, HttpServletRequest request) {
         boolean checkInList = false;
         attrs.addFlashAttribute("message", "Your product has been added to your list");
-        MyFridge myFridge = fridgeDAO.findMyFridgeByReference(id_fridge);
+        MyFridge myFridge = fridgeDAO.findMyFridgeByReference(reference);
         MyList myList = listDAO.findMyListByMyFridge(myFridge);
         Product myProduct = productDAO.findByName(request.getParameter("prod"));
 
         List<ProductList> myProductList = myList.getProducts();
         ProductList productList = new ProductList();
 
-        if (myList.getProducts().size() != 0) {
+        if ( myProductList.size() != 0) {
             for (int i = 0; i < myProductList.size(); i++) {
                 if (myProductList.get(i).getMyLists().getName().equals(myProduct.getName())) {
                     myProductList.get(i).setOnlist(myProductList.get(i).getOnlist() + 1);
+                    productListDAO.save(myProductList.get(i));
                     checkInList = true;
                 }
             }
             if(!checkInList){
                 productList.setMyLists(myProduct);
+                productList.setMyProducts(myList);
+                productList.setOnlist(1);
+                productListDAO.save(productList);
             }
         }
         else {
             productList.setMyLists(myProduct);
             productList.setMyProducts(myList);
             productList.setOnlist(1);
-            myProductList.add(productList);
-            myList.setProducts(myProductList);
+            productListDAO.save(productList);
         }
-        return new RedirectView("/dashboard" + "/" + id_fridge);
+        return new RedirectView("/dashboard" + "/" + reference);
     }
 
     // Release a product in my list
-    @PostMapping(value={"/{ref}/releaseQuantity"})
-    public RedirectView releaseQuantity(@ModelAttribute Product product, RedirectAttributes attrs, @PathVariable(value="ref") final String id_fridge) {
+    @PostMapping("/releaseQuantity")
+    public RedirectView releaseQuantity(RedirectAttributes attrs, HttpServletRequest request) {
        attrs.addFlashAttribute("message", "Your product has been released from your list");
-        MyFridge myFridge = fridgeDAO.findMyFridgeByReference(id_fridge);
+        MyFridge myFridge = fridgeDAO.findMyFridgeByReference(reference);
         MyList myList = listDAO.findMyListByMyFridge(myFridge);
+        Product myProduct = productDAO.findByName(request.getParameter("prod"));
 
         List<ProductList> productList = myList.getProducts();
         for (int i = 0; i < productList.size(); i++){
-            if(productList.get(i).getMyLists().getName().equals(product.getName())){
+            if(productList.get(i).getMyLists().getName().equals(myProduct.getName())){
                 if(productList.get(i).getOnlist() == 1){
                    productListDAO.delete(productList.get(i));
                 }
@@ -125,14 +131,14 @@ public class ProductController {
             }
         }
 
-       return new RedirectView("/dashboard" + "/" + id_fridge);
+       return new RedirectView("/dashboard" + "/" + reference);
     }
 
     // Release a product in my list
-    @PostMapping(value={"/{ref}/addQuantity"})
-    public RedirectView addQuantity(@ModelAttribute Product product, RedirectAttributes attrs, @PathVariable(value="ref") final String id_fridge) {
+    @PostMapping(value={"/addQuantity"})
+    public RedirectView addQuantity(@ModelAttribute Product product, RedirectAttributes attrs) {
         attrs.addFlashAttribute("message", "Your product has been released from your list");
-        MyFridge myFridge = fridgeDAO.findMyFridgeByReference(id_fridge);
+        MyFridge myFridge = fridgeDAO.findMyFridgeByReference(reference);
         MyList myList = listDAO.findMyListByMyFridge(myFridge);
 
         List<ProductList> productList = myList.getProducts();
@@ -141,7 +147,7 @@ public class ProductController {
                productList.get(i).setOnlist(productList.get(i).getOnlist() + 1);
            }
         }
-       return new RedirectView("/dashboard" + "/" + id_fridge);
+       return new RedirectView("/dashboard" + "/" + reference);
     }
 
     // Add a product list in my fridge
