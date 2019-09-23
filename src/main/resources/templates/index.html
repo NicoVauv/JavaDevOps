@@ -82,10 +82,10 @@
   <p>Welcome!</p>
 
   <div class="btn-group ">
-      <form method="post" th:action="@{/changeFridge}" >
+      <form method="post" th:action="@{/dashboard/changeFridge}" >
     <a class="btn btn-primary" href="/acceuil">Changer Frigo</a>
       </form>
-      <form method="post" th:action="@{/logout}" th:object="${products}">
+      <form method="post" th:action="@{/dashboard/logout}" th:object="${products}">
     <a class="btn btn-primary" href="/login">Deconnection</a>
       </form>
   </div>
@@ -164,8 +164,10 @@
       </tr>
       </thead>
       <tbody>
-      <tr th:each="list : ${myProductFridge}">
-        <td scope="row" th:text="${list.getMyProducts()}"></td>
+      <tr th:each="list : ${myProductList}">
+        <td scope="row" th:text="${list.getMyLists().category }"></td>
+          <td  th:text="${list.getMyLists().name }"></td>
+          <td  th:text="${list.getOnlist() }"></td>
 <!--        <td th:text="${}"></td>-->
       </tr>
       </tbody>
@@ -186,7 +188,11 @@
       </thead>
       <tbody>
       <tr th:each="frigo : ${myProductFridge}">
-        <td scope="row" th:text="${frigo.getMyFridges()}"></td>
+        <td scope="row" th:text="${frigo.getMyFridges().category}"></td>
+          <td th:text="${frigo.getMyFridges().name}"></td>
+          <td th:text="${frigo.getOnfridge()}"></td>
+
+
       </tr>
       </tbody>
     </table>
