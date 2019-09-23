@@ -46,13 +46,13 @@ public class ProductController {
         MyList myList = listDAO.findMyListByMyFridge(myFridge);
         List<ProductList> myProductList = new ArrayList<>();
         List<ProductFridge> myProductFridge = new ArrayList<>();
-        if (myList.getProducts() != null) {
+        if (myList.getProducts().size() != 0) {
             m.addAttribute("myProductList", myList.getProducts());
         } else {
             myProductList.add(new ProductList());
             m.addAttribute("myProductList", myProductList);
         }
-        if (myFridge.getMyProducts() != null) {
+        if (myFridge.getMyProducts().size() != 0) {
             m.addAttribute("myProductFridge", myFridge.getMyProducts());
         } else {
             myProductFridge.add(new ProductFridge());
@@ -66,7 +66,7 @@ public class ProductController {
     }
 
     // Add a product in the product list
-    @PostMapping("/add")
+    @PostMapping(value={"/{ref}/add"})
     public RedirectView addNewProduct(@ModelAttribute Product product, RedirectAttributes attrs, @PathVariable(value="ref") final String id_fridge) {
         attrs.addFlashAttribute("message", "Your product has been added");
         productDAO.save(product);
@@ -75,19 +75,34 @@ public class ProductController {
 
     // Add a product in my list
     @PostMapping(value={"/{ref}/addList"})
-    public RedirectView addToTheList(@ModelAttribute Product product, RedirectAttributes attrs, @PathVariable(value="ref") final String id_fridge) {
+    public RedirectView addToTheList(RedirectAttributes attrs, @PathVariable(value="ref") final String id_fridge, HttpServletRequest request) {
+        boolean checkInList = false;
         attrs.addFlashAttribute("message", "Your product has been added to your list");
         MyFridge myFridge = fridgeDAO.findMyFridgeByReference(id_fridge);
         MyList myList = listDAO.findMyListByMyFridge(myFridge);
-
-        ProductList productList = new ProductList();
-        productList.setMyLists(product);
-        productList.setMyProducts(myList);
-        productList.setOnlist(1);
+        Product myProduct = productDAO.findByName(request.getParameter("prod"));
 
         List<ProductList> myProductList = myList.getProducts();
-        myProductList.add(productList);
-        myList.setProducts(myProductList);
+        ProductList productList = new ProductList();
+
+        if (myList.getProducts().size() != 0) {
+            for (int i = 0; i < myProductList.size(); i++) {
+                if (myProductList.get(i).getMyLists().getName().equals(myProduct.getName())) {
+                    myProductList.get(i).setOnlist(myProductList.get(i).getOnlist() + 1);
+                    checkInList = true;
+                }
+            }
+            if(!checkInList){
+                productList.setMyLists(myProduct);
+            }
+        }
+        else {
+            productList.setMyLists(myProduct);
+            productList.setMyProducts(myList);
+            productList.setOnlist(1);
+            myProductList.add(productList);
+            myList.setProducts(myProductList);
+        }
         return new RedirectView("/dashboard" + "/" + id_fridge);
     }
 
