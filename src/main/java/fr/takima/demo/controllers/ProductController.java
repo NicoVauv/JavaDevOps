@@ -75,6 +75,21 @@ public class ProductController {
         return new RedirectView("/dashboard" + "/" + reference);
     }
 
+    // Add a product in the product list
+    @GetMapping("/selectCategory")
+    public String selectCategory(Model m, HttpServletRequest request) {
+        if(request.getParameter("All").equals("All")){
+            m.addAttribute("myProducts", productDAO.findAll());
+        }
+        else if (request.getParameter("Food").equals("Food")){
+            m.addAttribute("myProducts", productDAO.findByCategory("Food"));
+        }
+        else {
+            m.addAttribute("myProducts", productDAO.findByCategory("Drink"));
+        }
+        return "index";
+    }
+
     // Add a product in my list
     @PostMapping("/addList")
     public RedirectView addToTheList(RedirectAttributes attrs, HttpServletRequest request) {
@@ -113,11 +128,12 @@ public class ProductController {
 
     // Release a product in my list
     @PostMapping("/releaseQuantity")
-    public RedirectView releaseQuantity(RedirectAttributes attrs, HttpServletRequest request) {
+    public RedirectView releaseQuantity(@ModelAttribute Product product, RedirectAttributes attrs) {
        attrs.addFlashAttribute("message", "Your product has been released from your list");
         MyFridge myFridge = fridgeDAO.findMyFridgeByReference(reference);
         MyList myList = listDAO.findMyListByMyFridge(myFridge);
-        Product myProduct = productDAO.findByName(request.getParameter("prod"));
+        System.out.println(product.getName());
+        Product myProduct = productDAO.findByName(product.getName());
 
         List<ProductList> productList = myList.getProducts();
         for (int i = 0; i < productList.size(); i++){
@@ -137,16 +153,18 @@ public class ProductController {
     // Release a product in my list
     @PostMapping(value={"/addQuantity"})
     public RedirectView addQuantity(@ModelAttribute Product product, RedirectAttributes attrs) {
-        attrs.addFlashAttribute("message", "Your product has been released from your list");
+        /*attrs.addFlashAttribute("message", "Your product has been released from your list");
         MyFridge myFridge = fridgeDAO.findMyFridgeByReference(reference);
         MyList myList = listDAO.findMyListByMyFridge(myFridge);
+        System.out.println(product.getName());
+        Product myProduct = productDAO.findByName(product.getName());
 
         List<ProductList> productList = myList.getProducts();
         for (int i = 0; i < productList.size(); i++){
            if(productList.get(i).getMyLists().getName().equals(product.getName())){
                productList.get(i).setOnlist(productList.get(i).getOnlist() + 1);
            }
-        }
+        }*/
        return new RedirectView("/dashboard" + "/" + reference);
     }
 

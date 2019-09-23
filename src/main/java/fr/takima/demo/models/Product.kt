@@ -21,6 +21,4 @@ data class Product(
     override fun toString(): String {
         return "Product(id=$id)"
     }
-
-
 }
