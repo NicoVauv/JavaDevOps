@@ -78,6 +78,7 @@ public class ProductController {
     // Add a product in the product list
     @GetMapping("/selectCategory")
     public String selectCategory(Model m, HttpServletRequest request) {
+        System.out.println("Category : " + request.getParameter("Category"));
         if(request.getParameter("All").equals("All")){
             m.addAttribute("myProducts", productDAO.findAll());
         }
