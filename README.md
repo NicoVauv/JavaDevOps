@@ -5,7 +5,7 @@ Cette application est donc particulièrement utile pour les familles, les couple
 
 Utilisation : 
 	Inscription et connexion
-Il convient dans un premier temps de se créer un compte utilisateur sur l'application pour pouvoir accéder aux ressources à travers la page "SignIn" en indiquant son pseudo, son adresse mail et son mot de passe. Une fois un utilisateur crée, il peut se connecter à son espace frigidaire à travers la page "Login".
+Il convient dans un premier temps de se créer un compte utilisateur sur l'application pour pouvoir accéder aux ressources à travers la page "SignIn" en indiquant son pseudo, son adresse mail et son mot de passe. Une fois un utilisateur crée, il peut se connecter à son espace frigidaire à travers la page "Login". Des profils utilisateurs ont déjà été enregistrés et peuvent consulter leur frigo et liste de courses.
 
 	Home, gestion des frigidaires
 Depuis cet espace, l'utilisateur peut alors créer un nouveau frigidaire, rejoindre le frigidaire d'un autre utilisateur ou alors ouvrir un de ses propres frigidaires.
