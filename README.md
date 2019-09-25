@@ -5,14 +5,15 @@ Cette application est donc particulièrement utile pour les familles, les couple
 
 Utilisation : 
 	Inscription et connexion
-Il convient dans un premier temps de se créer un compte utilisateur sur l'application pour pouvoir accéder aux ressources à travers la page "SignIn" en indiquant son pseudo, son adresse mail et son mot de passe. Une fois un utilisateur crée, il peut se connecter à son espace frigidaire à travers la page "Login".
+Il convient dans un premier temps de se créer un compte utilisateur sur l'application pour pouvoir accéder aux ressources à travers la page "SignIn" en indiquant son pseudo, son adresse mail et son mot de passe. Une fois un utilisateur crée, il peut se connecter à son espace frigidaire à travers la page "Login". Des profils utilisateurs ont déjà été enregistrés et peuvent consulter leur frigo et liste de courses.
 
 	Home, gestion des frigidaires
 Depuis cet espace, l'utilisateur peut alors créer un nouveau frigidaire, rejoindre le frigidaire d'un autre utilisateur ou alors ouvrir un de ses propres frigidaires.
 
 	Index, gestion de sa liste de course 
-Une fois un frigidaire sélectionné, l'utilisateur peut désormais remplir sa liste de course en ajoutant les aliments dont il juge avoir besoin à partir de la page "index". 
-Un menu permet de sélectionner les aliments selon leur catégorie, mais l'utilisateur peut également ajouter par lui-même un aliment n'étant pas encore dans la base de donnée, et qui sera alors ajouté. L'utilisateur peut ajouter un produit, choisir la quantité ou le supprimer de la liste.
+Une fois un frigidaire sélectionné, l'utilisateur peut désormais remplir sa liste de course en ajoutant les aliments dont il juge avoir besoin à partir de la page "index". Il peut ajouter un objet déjà répertorié dans la base de données en cliquant dessus. 
+
+L'utilisateur peut également ajouter par lui-même un aliment n'étant pas encore dans la base de donnée, et qui sera alors ajouté. L'utilisateur peut ajouter un produit, choisir la quantité (bouttons + ou -)ou le supprimer de la liste.
 Une présentation du contenu de son frigidaire sur la droite de la page lui permet d'avoir un œil sur son besoin.
 
 	Retourner au menu, se déconnecter
