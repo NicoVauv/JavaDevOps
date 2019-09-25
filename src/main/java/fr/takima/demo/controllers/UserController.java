@@ -53,18 +53,15 @@ public class UserController {
 
     private boolean checkConnection(User user) {
                     User UserConnected = UserDAO.findByMail(user.getMail());
-                    if(user.getMail() != null & user.getPassword() != null){
-                        if(UserConnected != null & UserConnected.getPassword().equals(user.getPassword())){
-                            return true;
-                        }
-                        else {
-                            return false;
-            }
-
-        }
-        else {
-            return false;
-        }
+                    if((UserConnected == null) || (user.getMail() == null) || (user.getPassword() == null)){
+                        return false;
+                    }
+                    else if (UserConnected.getMail().equals(user.getMail()) && UserConnected.getPassword().equals(user.getPassword())){
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
     }
 
     @GetMapping("/signin")
@@ -75,12 +72,27 @@ public class UserController {
 
     @PostMapping("/signin")
     public RedirectView registration(@ModelAttribute User user, RedirectAttributes attrs) {
-        User newUser = new User();
-        newUser.setPseudo(user.getPseudo());
-        newUser.setMail(user.getMail());
-        newUser.setPassword(user.getPassword());
-        UserDAO.save(newUser);
-        attrs.addFlashAttribute("message", "New User added");
-        return new RedirectView("/login");
+        if(!checkRegistration(user)){
+            attrs.addFlashAttribute("message", "Please try again !");
+            return new RedirectView("/signin");
+        }
+        else {
+            User newUser = new User();
+            newUser.setPseudo(user.getPseudo());
+            newUser.setMail(user.getMail());
+            newUser.setPassword(user.getPassword());
+            UserDAO.save(newUser);
+            attrs.addFlashAttribute("message", "New User added");
+            return new RedirectView("/login");
+        }
+    }
+
+    private boolean checkRegistration(User user) {
+        if((user.getPseudo().equals("")) || (user.getMail().equals("")) || (user.getPassword().equals(""))){
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 }

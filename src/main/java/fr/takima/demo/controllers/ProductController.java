@@ -61,7 +61,6 @@ public class ProductController {
         m.addAttribute("products", productDAO.findAll());
         // An empty product to add to the product list
         m.addAttribute("product", new Product());
-        m.addAttribute("myNewList", myList.getProducts());
         return "index";
     }
 
@@ -80,19 +79,24 @@ public class ProductController {
         MyList myList = listDAO.findMyListByMyFridge(myFridge);
 
         List<ProductFridge> myProductFridge = myFridge.getMyProducts();
+        ProductFridge productFridge = new ProductFridge();
 
-        if (myProductFridge.size() != 0) {
-            for (int i = 0; i < myList.getProducts().size(); i++) {
+        // Add product to fridge and check if it's already in
+        for (int i = 0; i < myList.getProducts().size(); i++) {
                 for (int j = 0; j < myProductFridge.size(); j++) {
-                    if (myList.getProducts().get(i).getMyLists().getName().equals(myProductFridge.get(j).getMyFridges().getName())) {
-                        myProductFridge.get(j).setOnfridge(myProductFridge.get(j).getOnfridge() + myList.getProducts().get(i).getOnlist());
-                        productFridgeDAO.save(myProductFridge.get(j));
-                        productListDAO.delete(myList.getProducts().get(i));
+                    if(myList.getProducts().size() != 0){
+                        if (myList.getProducts().get(i).getMyLists().getName().equals(myProductFridge.get(j).getMyFridges().getName())) {
+                            myProductFridge.get(j).setOnfridge(myProductFridge.get(j).getOnfridge() + myList.getProducts().get(i).getOnlist());
+                            productListDAO.delete(myList.getProducts().get(i));
+                            myList.getProducts().remove(myList.getProducts().get(i));
+                        }
                     }
                 }
             }
-            for(int i = 0; i < myList.getProducts().size(); i++){
-                ProductFridge productFridge = new ProductFridge();
+
+        // Add product to fridge if not already in the fridge
+        if(myList.getProducts().size() != 0) {
+            for (int i = 0; i < myList.getProducts().size(); i++) {
                 productFridge.setMyProducts(myFridge);
                 productFridge.setMyFridges(myList.getProducts().get(i).getMyLists());
                 productFridge.setOnfridge(myList.getProducts().get(i).getOnlist());
@@ -100,6 +104,7 @@ public class ProductController {
                 productListDAO.delete(myList.getProducts().get(i));
             }
         }
+
         return new RedirectView("/dashboard" + "/" + reference);
     }
 
@@ -178,31 +183,4 @@ public class ProductController {
         }*/
         return new RedirectView("/dashboard" + "/" + reference);
     }
-
-    // Add a product list in my fridge
-    @PostMapping(value = {"/{ref}/addFridge"})
-    public RedirectView addToTheFridge(@ModelAttribute MyList myList, RedirectAttributes attrs, @PathVariable(value = "ref") final String id_fridge) {
-        attrs.addFlashAttribute("message", "Your list has been added to your fridge");
-        MyFridge myFridge = fridgeDAO.findMyFridgeByReference(id_fridge);
-        ProductFridge productFridge = new ProductFridge();
-        List<ProductFridge> myProductFridge = myFridge.getMyProducts();
-
-        for (int i = 0; i < myList.getProducts().size(); i++) {
-            for (int j = 0; j < myFridge.getMyProducts().size(); j++) {
-                if (myList.getProducts().get(i).getMyLists().getName().equals(myFridge.getMyProducts().get(j).getMyFridges().getName())) {
-                    productFridge.setMyProducts(myFridge);
-                    productFridge.setMyFridges(myList.getProducts().get(i).getMyLists());
-                    productFridge.setOnfridge(myList.getProducts().get(i).getOnlist() + myFridge.getMyProducts().get(j).getOnfridge());
-                } else {
-                    productFridge.setMyProducts(myFridge);
-                    productFridge.setMyFridges(myList.getProducts().get(i).getMyLists());
-                    productFridge.setOnfridge(myList.getProducts().get(i).getOnlist());
-                    myProductFridge.add(productFridge);
-                }
-            }
-
-        }
-        return new RedirectView("/dashboard" + "/" + id_fridge);
-    }
-
 }

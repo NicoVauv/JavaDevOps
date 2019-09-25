@@ -189,14 +189,15 @@
                             </button>
                         </td>
                         <td>
-                            <button type="button" th:onclick="releaseQuantity(${list.getOnlist()})" class="btn btn-primary">-</button>
+                            <button type="button" onclick="releaseQuantity()" class="btn btn-primary">-</button>
                         </td>
                     </tr>
                 </tbody>
                 </form>
             </table>
-            <button form = "fridge" class="btn btn-primary" type="submit">J'ai fait mes courses ! Mettre dans mon frigo</button>
         </div>
+        <br>
+        <button form = "fridge" class="btn btn-primary" type="submit">J'ai fait mes courses ! Mettre dans mon frigo</button>
     </div>
 
 <script type="text/javascript">
@@ -205,14 +206,12 @@
         var quantity = +document.getElementById('quantity').value;
         typeof(quantity);
         return quantity +1;
-       // quantityProduct.rows[this].cells[2].innerHTML = parseInt(document.getElementById("quantity").value) + 1;
-      //  return quantityProduct;
     }
 
     function releaseQuantity() {
-        var quantityProduct = document.getElementById("quantity");
-        quantityProduct.rows[this].cells[2].innerHTML = parseInt(document.getElementById("quantity").value) - 1;
-        return quantityProduct;
+        var quantity = +document.getElementById('quantity').value;
+        typeof(quantity);
+        return quantity -1;
     }
 
 </script>
@@ -220,7 +219,7 @@
 <aside>
     <div class="droite">
         <label>Mon frigo</label>
-        <div class="frigo">
+        <div class="frigo" th:if="${myProductFridge.size()!= 0}">
             <table class="table table-striped table-dark">
                 <thead class="thead-light">
                 <tr>
@@ -233,9 +232,9 @@
                 </thead>
                 <tbody>
                 <tr th:each="frigo : ${myProductFridge}">
-                    <td scope="row" th:text="${frigo.getMyFridges().category}"></td>
-                    <td th:text="${frigo.getMyFridges().name}"></td>
-                    <td th:text="${frigo.getOnfridge()}"></td>
+                    <td scope="row" th:text="${frigo.getMyFridges().category} ?: 'UNKNOWN'"></td>
+                    <td th:text="${frigo.getMyFridges().name} ?: 'UNKNOWN'"></td>
+                    <td th:text="${frigo.getOnfridge()} ?: 'UNKNOWN'"></td>
                     <td>
                         <form method="post" th:action="@{/dashboard/addQuantity}" th:object="${product}">
                             <button class="btn btn-primary" type="submit" th:field="*{name}">+</button>
