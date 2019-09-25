@@ -61,6 +61,7 @@ public class ProductController {
         m.addAttribute("products", productDAO.findAll());
         // An empty product to add to the product list
         m.addAttribute("product", new Product());
+        m.addAttribute("myNewList", myList.getProducts());
         return "index";
     }
 
