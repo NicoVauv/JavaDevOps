@@ -11,8 +11,9 @@ Il convient dans un premier temps de se créer un compte utilisateur sur l'appli
 Depuis cet espace, l'utilisateur peut alors créer un nouveau frigidaire, rejoindre le frigidaire d'un autre utilisateur ou alors ouvrir un de ses propres frigidaires.
 
 	Index, gestion de sa liste de course 
-Une fois un frigidaire sélectionné, l'utilisateur peut désormais remplir sa liste de course en ajoutant les aliments dont il juge avoir besoin à partir de la page "index". 
-Un menu permet de sélectionner les aliments selon leur catégorie, mais l'utilisateur peut également ajouter par lui-même un aliment n'étant pas encore dans la base de donnée, et qui sera alors ajouté. L'utilisateur peut ajouter un produit, choisir la quantité ou le supprimer de la liste.
+Une fois un frigidaire sélectionné, l'utilisateur peut désormais remplir sa liste de course en ajoutant les aliments dont il juge avoir besoin à partir de la page "index". Il peut ajouter un objet déjà répertorié dans la base de données en cliquant dessus. 
+
+L'utilisateur peut également ajouter par lui-même un aliment n'étant pas encore dans la base de donnée, et qui sera alors ajouté. L'utilisateur peut ajouter un produit, choisir la quantité (bouttons + ou -)ou le supprimer de la liste.
 Une présentation du contenu de son frigidaire sur la droite de la page lui permet d'avoir un œil sur son besoin.
 
 	Retourner au menu, se déconnecter
