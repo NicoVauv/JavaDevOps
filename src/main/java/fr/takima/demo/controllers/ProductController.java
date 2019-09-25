@@ -79,7 +79,6 @@ public class ProductController {
         MyList myList = listDAO.findMyListByMyFridge(myFridge);
 
         List<ProductFridge> myProductFridge = myFridge.getMyProducts();
-        ProductFridge productFridge = new ProductFridge();
 
         // Add product to fridge and check if it's already in
         for (int i = 0; i < myList.getProducts().size(); i++) {
@@ -97,6 +96,7 @@ public class ProductController {
         // Add product to fridge if not already in the fridge
         if(myList.getProducts().size() != 0) {
             for (int i = 0; i < myList.getProducts().size(); i++) {
+                ProductFridge productFridge = new ProductFridge();
                 productFridge.setMyProducts(myFridge);
                 productFridge.setMyFridges(myList.getProducts().get(i).getMyLists());
                 productFridge.setOnfridge(myList.getProducts().get(i).getOnlist());
